@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ristorante L'Isoletta Olpe | Italienisches Restaurant</title>
+  <meta name="description" content="Ristorante L'Isoletta in Olpe: italienische Küche, Speisekarte, Tageskarte, Weine, Öffnungszeiten, Galerie, Reservierung und Kontakt." />
+  <meta name="theme-color" content="#100b08" />
+  <style>
+    :root {
+      --bg: #0f0b08;
+      --bg-2: #17100c;
+      --card: #221811;
+      --card-2: #2d1f17;
+      --cream: #fff4df;
+      --cream-2: #ead8bc;
+      --muted: #cbb59a;
+      --gold: #c89b5c;
+      --gold-2: #e7c583;
+      --terracotta: #a94f2d;
+      --wine: #4c171b;
+      --line: rgba(255,244,223,.12);
+      --shadow: 0 28px 80px rgba(0,0,0,.38);
+      --radius: 28px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 5% 0%, rgba(200,155,92,.18), transparent 34%),
+        radial-gradient(circle at 100% 28%, rgba(169,79,45,.14), transparent 35%),
+        linear-gradient(180deg, #0f0b08 0%, #160e0a 48%, #0d0907 100%);
+      color: var(--cream);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,11,8,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 230px; }
+    .brand-mark {
+      width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center;
+      background: linear-gradient(145deg, var(--gold-2), var(--terracotta));
+      color: #1b1008; font-family: Georgia, serif; font-weight: 900; font-size: 25px;
+      box-shadow: 0 16px 36px rgba(200,155,92,.22);
+    }
+    .brand-title { font-family: Georgia, "Times New Roman", serif; font-size: 24px; letter-spacing: .02em; line-height: 1.1; }
+    .brand-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .nav-links { display: flex; align-items: center; gap: 20px; color: var(--cream-2); font-size: 14px; }
+    .nav-links a:not(.btn) { padding: 8px 0; position: relative; }
+    .nav-links a:not(.btn)::after { content:""; position:absolute; left:0; right:0; bottom:2px; height:1px; background: var(--gold-2); transform: scaleX(0); transform-origin:left; transition:.2s; }
+    .nav-links a:not(.btn):hover { color: var(--gold-2); }
+    .nav-links a:not(.btn):hover::after { transform: scaleX(1); }
+    .mobile-toggle { display: none; background: none; border: 0; color: var(--cream); font-size: 32px; cursor: pointer; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line);
+      background: rgba(255,244,223,.055); color: var(--cream); font-weight: 800; transition:.22s ease; cursor:pointer;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(232,197,131,.55); background: rgba(255,244,223,.1); }
+    .btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-2)); color: #1b1109; border: none; box-shadow: 0 18px 40px rgba(200,155,92,.28); }
+    .btn-primary:hover { background: linear-gradient(135deg, var(--gold-2), var(--gold)); }
+    .btn-small { min-height: 38px; padding: 0 15px; font-size: 13px; }
+    .hero { position: relative; overflow: hidden; min-height: calc(100vh - 78px); display: grid; align-items: center; padding: 88px 0; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(15,11,8,.98) 0%, rgba(15,11,8,.84) 45%, rgba(15,11,8,.52) 100%),
+        url("images/IMG_1971_s.jpg");
+      background-size: cover; background-position: center; transform: scale(1.03); z-index: -2;
+    }
+    .hero::after { content:""; position:absolute; inset: auto -8% -35% auto; width:700px; height:700px; border-radius:50%; background:rgba(200,155,92,.13); filter: blur(18px); z-index:-1; }
+    .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 52px; align-items: center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; color:var(--gold-2); font-weight:900; letter-spacing:.16em; text-transform:uppercase; font-size:12px; margin-bottom:20px; }
+    .eyebrow::before { content:""; width:38px; height:1px; background:var(--gold-2); }
+    h1,h2,h3 { font-family: Georgia, "Times New Roman", serif; line-height:1.08; }
+    h1 { font-size: clamp(48px, 7vw, 92px); max-width: 850px; letter-spacing:-.045em; margin-bottom:24px; }
+    .hero-text { max-width: 700px; color: var(--cream-2); font-size: 20px; margin-bottom: 34px; }
+    .hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-bottom: 30px; }
+    .hero-facts { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; max-width:780px; }
+    .fact { padding:18px; border:1px solid var(--line); background: rgba(255,244,223,.055); border-radius:20px; backdrop-filter: blur(14px); }
+    .fact strong { display:block; color:var(--cream); font-size:17px; margin-bottom:2px; }
+    .fact span { color: var(--muted); font-size: 13px; }
+    .photo-stack { position: relative; min-height: 640px; }
+    .photo-card { position:absolute; overflow:hidden; border:1px solid rgba(255,244,223,.16); box-shadow: var(--shadow); background:#20150f; }
+    .photo-card img { width:100%; height:100%; object-fit:cover; filter:saturate(1.04) contrast(1.02); }
+    .photo-card.main { inset: 0 0 80px 80px; border-radius: 34px; }
+    .photo-card.second { left:0; bottom:0; width:54%; height:210px; border-radius:26px; }
+    .photo-card.third { right:38px; bottom:20px; width:38%; height:170px; border-radius:24px; }
+    .badge { position:absolute; left:34px; top:34px; padding:14px 18px; border-radius:999px; background:rgba(15,11,8,.70); border:1px solid var(--line); backdrop-filter: blur(14px); color:var(--gold-2); font-weight:900; }
+    .section { padding: 100px 0; }
+    .section.alt { background: linear-gradient(180deg, rgba(255,244,223,.035), transparent), var(--bg-2); border-top: 1px solid var(--line); border-bottom:1px solid var(--line); }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:30px; margin-bottom:46px; }
+    .section-title { max-width: 760px; }
+    .section-title h2 { font-size: clamp(36px, 5vw, 62px); letter-spacing:-.035em; margin-bottom:16px; }
+    .section-title p { color: var(--cream-2); font-size:18px; }
+    .cards { display:grid; grid-template-columns: repeat(3, 1fr); gap:22px; }
+    .card { position:relative; overflow:hidden; background:linear-gradient(180deg, rgba(255,244,223,.08), rgba(255,244,223,.035)); border:1px solid var(--line); border-radius: var(--radius); padding:30px; min-height:240px; }
+    .card::after { content:""; position:absolute; right:-54px; bottom:-54px; width:160px; height:160px; border-radius:50%; background:rgba(200,155,92,.12); }
+    .card-icon { width:56px; height:56px; border-radius:18px; display:grid; place-items:center; background:rgba(200,155,92,.15); color:var(--gold-2); font-size:26px; margin-bottom:22px; }
+    .card h3 { font-size:28px; margin-bottom:12px; }
+    .card p, .card li { color: var(--cream-2); position:relative; z-index:1; }
+    .image-strip { display:grid; grid-template-columns: 1.2fr .8fr 1fr .8fr; gap:14px; margin-top:34px; }
+    .strip-img { min-height: 210px; border-radius: 24px; overflow:hidden; border:1px solid var(--line); background:#20150f; }
+    .strip-img img { width:100%; height:100%; object-fit:cover; }
+    .split { display:grid; grid-template-columns: .92fr 1.08fr; gap:50px; align-items:center; }
+    .image-panel { min-height:620px; border-radius:38px; background:linear-gradient(180deg, rgba(15,11,8,.08), rgba(15,11,8,.82)), url("images/IMG_1977_s.jpg"); background-size:cover; background-position:center; box-shadow: var(--shadow); position:relative; overflow:hidden; border:1px solid var(--line); }
+    .image-label { position:absolute; left:28px; right:28px; bottom:28px; padding:24px; border-radius:24px; background:rgba(15,11,8,.76); backdrop-filter: blur(16px); border:1px solid var(--line); }
+    .image-label strong { display:block; font-family:Georgia,serif; font-size:28px; margin-bottom:6px; }
+    .image-label span { color: var(--cream-2); }
+    .hours-box { display:grid; gap:12px; margin-top:26px; }
+    .hour-row { display:grid; grid-template-columns: 130px 1fr; gap:18px; padding:16px 18px; border-radius:18px; background:rgba(255,244,223,.055); border:1px solid rgba(255,244,223,.08); }
+    .hour-row span { color: var(--cream-2); }
+    .closed { color:#ffb4a2 !important; font-weight:800; }
+    .menu-tools { position: sticky; top: 78px; z-index: 40; padding: 18px; border-radius: 24px; background: rgba(23,16,12,.88); backdrop-filter: blur(18px); border:1px solid var(--line); margin-bottom: 32px; display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center; box-shadow:0 12px 40px rgba(0,0,0,.22); }
+    .search { min-height:48px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background:rgba(255,244,223,.06); color:var(--cream); outline:none; width:100%; }
+    .search::placeholder { color: rgba(255,244,223,.55); }
+    .menu-jump { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:34px; }
+    .chip { border:1px solid var(--line); background:rgba(255,244,223,.055); color:var(--cream-2); border-radius:999px; padding:9px 13px; font-size:13px; font-weight:800; cursor:pointer; transition:.2s; }
+    .chip:hover { color:#1b1109; background:var(--gold-2); border-color:var(--gold-2); }
+    .menu-section-block { margin-bottom: 34px; scroll-margin-top: 165px; }
+    .menu-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; padding:0 4px 16px; border-bottom:1px solid rgba(255,244,223,.1); margin-bottom:16px; }
+    .menu-heading h3 { font-size:34px; }
+    .menu-heading p { color: var(--muted); }
+    .menu-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:14px; }
+    .menu-item { padding:20px; border-radius:22px; background:rgba(255,244,223,.055); border:1px solid var(--line); display:grid; grid-template-columns: 52px 1fr auto; gap:16px; align-items:start; min-height:104px; }
+    .menu-number { width:42px; min-height:42px; display:grid; place-items:center; border-radius:14px; background:rgba(200,155,92,.15); color:var(--gold-2); font-weight:900; font-size:13px; }
+    .menu-copy h4 { font-size:18px; line-height:1.25; margin-bottom:5px; }
+    .menu-copy p { color:var(--cream-2); font-size:14px; }
+    .menu-price { color:var(--gold-2); font-weight:900; white-space:nowrap; font-size:16px; }
+    .note { color: var(--muted); font-size:14px; margin-top:12px; }
+    .special-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+    .special-card { border-radius: var(--radius); border:1px solid var(--line); background:linear-gradient(180deg, rgba(255,244,223,.08), rgba(255,244,223,.035)); padding:26px; }
+    .special-card h3 { font-size:28px; margin-bottom:12px; }
+    .special-line { padding:13px 0; border-top:1px solid rgba(255,244,223,.10); }
+    .special-line:first-of-type { border-top:0; }
+    .special-line strong { display:block; }
+    .special-line span { color:var(--cream-2); font-size:14px; }
+    .price-big { color:var(--gold-2); font-weight:900; font-size:20px; margin-top:14px; }
+    .gallery-grid { display:grid; grid-template-columns: repeat(12, 1fr); gap:14px; }
+    .gallery-grid figure { border-radius:24px; overflow:hidden; border:1px solid var(--line); background:#20150f; min-height:180px; position:relative; }
+    .gallery-grid img { width:100%; height:100%; object-fit:cover; }
+    .gallery-grid figure:nth-child(1) { grid-column: span 5; min-height:300px; }
+    .gallery-grid figure:nth-child(2) { grid-column: span 4; min-height:300px; }
+    .gallery-grid figure:nth-child(3) { grid-column: span 3; min-height:300px; }
+    .gallery-grid figure:nth-child(4) { grid-column: span 4; }
+    .gallery-grid figure:nth-child(5) { grid-column: span 4; }
+    .gallery-grid figure:nth-child(6) { grid-column: span 4; }
+    .gallery-grid figure:nth-child(7) { grid-column: span 3; }
+    .gallery-grid figure:nth-child(8) { grid-column: span 3; }
+    .gallery-grid figure:nth-child(9) { grid-column: span 3; }
+    .gallery-grid figure:nth-child(10) { grid-column: span 3; }
+    .downloads { display:grid; grid-template-columns: repeat(5,1fr); gap:14px; }
+    .download { padding:18px; border-radius:20px; border:1px solid var(--line); background:rgba(255,244,223,.055); display:flex; flex-direction:column; gap:10px; }
+    .download strong { font-family:Georgia,serif; font-size:20px; }
+    .download span { color:var(--cream-2); font-size:13px; }
+    details.original { border:1px solid var(--line); border-radius:24px; overflow:hidden; background:rgba(255,244,223,.045); margin-bottom:14px; }
+    details.original summary { cursor:pointer; padding:20px 24px; font-weight:900; color:var(--gold-2); list-style:none; }
+    details.original summary::-webkit-details-marker { display:none; }
+    .original-content { padding:0 24px 24px; }
+    .original-page { border-top:1px solid rgba(255,244,223,.1); padding-top:18px; margin-top:18px; }
+    .original-page h4 { margin-bottom:10px; color:var(--cream); }
+    .original-page pre { white-space:pre-wrap; color:var(--cream-2); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:13px; line-height:1.6; }
+    .contact-grid { display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
+    .contact-card { padding:32px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,244,223,.08), rgba(255,244,223,.035)); border:1px solid var(--line); }
+    .contact-card h3 { font-size:30px; margin-bottom:16px; }
+    .contact-card p,.contact-card li { color:var(--cream-2); }
+    .contact-list { list-style:none; display:grid; gap:12px; margin-top:18px; }
+    .map-placeholder { min-height:360px; border-radius:var(--radius); background:linear-gradient(135deg, rgba(200,155,92,.18), rgba(111,125,69,.16)), repeating-linear-gradient(45deg, rgba(255,244,223,.06) 0, rgba(255,244,223,.06) 1px, transparent 1px, transparent 18px), url("images/IMG_1982_s.jpg"); background-size:auto, auto, cover; background-position:center; border:1px solid var(--line); display:grid; place-items:center; text-align:center; padding:36px; position:relative; overflow:hidden; }
+    .map-placeholder::before { content:""; position:absolute; inset:0; background:rgba(15,11,8,.72); }
+    .map-placeholder > div { position:relative; z-index:1; }
+    .map-placeholder h3 { font-size:34px; margin-bottom:8px; }
+    .map-placeholder p { color:var(--cream-2); margin-bottom:22px; }
+    .footer { padding:44px 0; border-top:1px solid var(--line); color:var(--muted); }
+    .footer-inner { display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+    .legal { color:var(--muted); font-size:13px; max-width:950px; margin-top:18px; }
+    .floating-call { display:none; position:fixed; left:18px; right:18px; bottom:18px; z-index:100; }
+    .floating-call .btn { width:100%; box-shadow:0 20px 50px rgba(0,0,0,.35); }
+    .hidden { display:none !important; }
+    mark { background:rgba(232,197,131,.25); color:inherit; border-radius:4px; padding:0 2px; }
+
+    @media (max-width: 1100px) {
+      .nav-links { gap:12px; font-size:13px; }
+      .downloads { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 920px) {
+      .mobile-toggle { display:block; }
+      .nav-links { display:none; position:absolute; left:20px; right:20px; top:88px; padding:20px; border-radius:24px; background:rgba(23,16,12,.98); border:1px solid var(--line); box-shadow:var(--shadow); flex-direction:column; align-items:stretch; }
+      .nav-links.open { display:flex; }
+      .hero-grid, .split, .contact-grid { grid-template-columns:1fr; }
+      .photo-stack { min-height:520px; }
+      .photo-card.main { inset:0 0 70px 40px; }
+      .cards, .hero-facts, .special-grid { grid-template-columns:1fr; }
+      .menu-grid { grid-template-columns:1fr; }
+      .menu-tools { grid-template-columns:1fr; top:70px; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .image-panel { min-height:460px; }
+      .gallery-grid figure, .gallery-grid figure:nth-child(n) { grid-column:span 6; min-height:220px; }
+      .downloads { grid-template-columns: repeat(2,1fr); }
+      .floating-call { display:block; }
+      body { padding-bottom:82px; }
+    }
+    @media (max-width: 560px) {
+      .container { width:min(100% - 26px, var(--max)); }
+      .nav { min-height:70px; }
+      .brand-title { font-size:19px; }
+      .brand-mark { width:44px; height:44px; }
+      .hero { min-height:auto; padding:64px 0; }
+      .hero-text { font-size:17px; }
+      .hero-actions { flex-direction:column; }
+      .btn { width:100%; }
+      .section { padding:74px 0; }
+      .photo-stack { min-height:440px; }
+      .photo-card.main { inset:0 0 90px 0; }
+      .photo-card.second { width:62%; height:150px; }
+      .photo-card.third { right:0; width:48%; height:130px; }
+      .image-strip { grid-template-columns:1fr; }
+      .menu-item { grid-template-columns: 42px 1fr; }
+      .menu-price { grid-column: 2; }
+      .hour-row { grid-template-columns:1fr; gap:4px; }
+      .gallery-grid figure, .gallery-grid figure:nth-child(n) { grid-column:span 12; }
+      .downloads { grid-template-columns:1fr; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Ristorante L'Isoletta Olpe",
+    "servesCuisine": ["Italienisch", "Mediterran"],
+    "address": {"@type":"PostalAddress", "streetAddress":"Westfälische Straße 21", "postalCode":"57462", "addressLocality":"Olpe", "addressCountry":"DE"},
+    "telephone": "+4927612626",
+    "url": "https://www.lisoletta-olpe.de/",
+    "acceptsReservations": "PhoneOnly"
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#start" aria-label="L'Isoletta Startseite">
+        <div class="brand-mark">L</div>
+        <div><div class="brand-title">L'Isoletta</div><div class="brand-sub">Ristorante Italiano · Olpe</div></div>
+      </a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menü öffnen">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#restaurant">Restaurant</a>
+        <a href="#speisekarte">Speisekarte</a>
+        <a href="#tageskarte">Aktuelles</a>
+        <a href="#weine">Weine</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a class="btn btn-primary btn-small" href="tel:+4927612626">Reservieren</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="start">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Authentisch italienisch</div>
+          <h1>Ein Stück Italien mitten in Olpe.</h1>
+          <p class="hero-text">Mario Girardi und sein Team heißen Sie willkommen: mediterranes Ambiente, italienische Köstlichkeiten, Pizza, Pasta, Fisch, Fleischgerichte, ausgesuchte Weine und herzlicher Service.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="tel:+4927612626">Jetzt telefonisch reservieren</a>
+            <a class="btn" href="#speisekarte">Vollständige Karte ansehen</a>
+          </div>
+          <div class="hero-facts">
+            <div class="fact"><strong>Reservierung</strong><span>nur telefonisch möglich</span></div>
+            <div class="fact"><strong>Adresse</strong><span>Westfälische Straße 21 · 57462 Olpe</span></div>
+            <div class="fact"><strong>Mittwoch</strong><span>Ruhetag</span></div>
+          </div>
+        </div>
+        <div class="photo-stack" aria-label="Restaurant-Impressionen">
+          <div class="photo-card main"><img src="images/IMG_1977_s.jpg" alt="Gedeckter Tisch im Ristorante L'Isoletta" /></div>
+          <div class="photo-card second"><img src="images/IMG_1979_s.jpg" alt="Tisch mit Wein und Kerze" /></div>
+          <div class="photo-card third"><img src="images/IMG_1988_s.jpg" alt="Italienische Weine an der Bar" /></div>
+          <div class="badge">Olpe · Italienisch</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="restaurant">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-title">
+            <h2>Gastfreundschaft, die man sieht. Küche, die man schmeckt.</h2>
+            <p>Die alte Seite wurde zu einem modernen Onepager weiterentwickelt. Alle wichtigen Inhalte bleiben erhalten: Begrüßung, Öffnungszeiten, Galerie, Speisekarte, Gästebuch-Hinweis, Links, Kontakt, Download und Impressum.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">🍝</div><h3>Italienische Klassiker</h3><p>Antipasti, Pasta, Pizza, Fleisch- und Fischgerichte sowie Desserts werden vollständig und übersichtlich dargestellt.</p></article>
+          <article class="card"><div class="card-icon">🍷</div><h3>Weine & Aktionen</h3><p>Weinkarte, offene Weine, Weinangebote, Tageskarte und Degustazione-Aktionen sind direkt in die Seite integriert.</p></article>
+          <article class="card"><div class="card-icon">🎉</div><h3>Buffet-Service</h3><p>Komplett-Service mit kaltem und warmem Buffet für Feierlichkeiten, Firmenfeste und Partys inklusive Anlieferung.</p></article>
+        </div>
+        <div class="image-strip">
+          <div class="strip-img"><img src="images/IMG_1912_s.jpg" alt="Heller Gastraum im Restaurant" /></div>
+          <div class="strip-img"><img src="images/IMG_1960_s.jpg" alt="Elegant gedeckter Tisch" /></div>
+          <div class="strip-img"><img src="images/IMG_1982_s.jpg" alt="Gastraum und Barbereich" /></div>
+          <div class="strip-img"><img src="images/IMG_2015_s.jpg" alt="Koch in der Küche" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="zeiten">
+      <div class="container split">
+        <div class="image-panel"><div class="image-label"><strong>La dolce vita in Olpe</strong><span>Dezente Fotos, klare Informationen und eine Speisekarte, die auch mobil gut funktioniert.</span></div></div>
+        <div>
+          <div class="eyebrow">Öffnungszeiten</div>
+          <div class="section-title"><h2>Mittags und abends geöffnet.</h2><p>Die Öffnungszeiten sind klar sichtbar. Der wichtigste Hinweis der alten Seite bleibt prominent erhalten: Tischreservierungen sind nur telefonisch möglich.</p></div>
+          <div class="hours-box">
+            <div class="hour-row"><strong>Montag</strong><span>12:00–14:00 · 17:30–22:00</span></div>
+            <div class="hour-row"><strong>Dienstag</strong><span>12:00–14:00 · 17:30–22:00</span></div>
+            <div class="hour-row"><strong>Mittwoch</strong><span class="closed">Ruhetag / geschlossen</span></div>
+            <div class="hour-row"><strong>Donnerstag</strong><span>12:00–14:00 · 17:30–22:00</span></div>
+            <div class="hour-row"><strong>Freitag</strong><span>12:00–14:00 · 17:30–22:00</span></div>
+            <div class="hour-row"><strong>Samstag</strong><span>12:00–14:00 · 17:30–22:00</span></div>
+            <div class="hour-row"><strong>Sonntag</strong><span>12:00–14:00 · 17:30–21:00</span></div>
+          </div>
+          <p class="note">Vor Veröffentlichung sollten Zeiten und Preise noch einmal final mit dem Restaurant abgeglichen werden.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="speisekarte">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-title"><h2>Vollständige Speisekarte</h2><p>Die Speisekarte ist nicht mehr auf fünf alte Unterseiten verteilt, sondern als durchsuchbare Karte mit Kategorien aufgebaut. So bleiben alle Gerichte sichtbar und die Seite wirkt trotzdem modern.</p></div>
+          <a class="btn" href="pdfs/hauptkarte.pdf" target="_blank" rel="noopener">Hauptkarte als PDF</a>
+        </div>
+        <div class="menu-tools">
+          <input id="menuSearch" class="search" type="search" placeholder="Gericht suchen, z. B. Trüffel, Pizza, Filetto, Salmone …" />
+          <button class="btn" id="resetSearch" type="button">Suche zurücksetzen</button>
+        </div>
+        <div class="menu-jump" id="menuJump"></div>
+        <div id="menuRoot"></div>
+      </div>
+    </section>
+
+    <section class="section alt" id="tageskarte">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-title"><h2>Tageskarte & Sonderaktionen</h2><p>Aktuelle Gerichte, Weinangebote und Degustazione-Menüs haben einen eigenen Bereich. Dadurch gehen Aktionen nicht mehr in der Hauptkarte unter.</p></div>
+        </div>
+        <div class="special-grid" id="specialRoot"></div>
+      </div>
+    </section>
+
+    <section class="section" id="weine">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-title"><h2>Weinkarte & Getränke</h2><p>Offene Weine, Getränke und besondere Flaschenweine sind vollständig eingebunden. Die ausführliche Weinkarte bleibt zusätzlich als PDF verfügbar.</p></div>
+          <a class="btn" href="pdfs/weinkarte.pdf" target="_blank" rel="noopener">Weinkarte als PDF</a>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">🥂</div><h3>Offene Weine</h3><p>Lugana, Pinot Grigio, Verdicchio, Primitivo, Bardolino, Lambrusco, Rosato, Montepulciano und Soler De Stefani.</p></article>
+          <article class="card"><div class="card-icon">🍾</div><h3>Flaschenweine</h3><p>Weißweine, Rotweine, De-Stefani-Auswahl, Prosecco und weitere Beschreibungen aus der Weinkarte.</p></article>
+          <article class="card"><div class="card-icon">🥃</div><h3>Digestifs</h3><p>Grappe casa Berta und Ron Zacapa sind in der Hauptkarte mit Beschreibungen und Preisen aufgenommen.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="galerie">
+      <div class="container">
+        <div class="section-head"><div class="section-title"><h2>Galerie</h2><p>Die vorhandenen Restaurantfotos wurden dezent integriert: als Atmosphäre, nicht als überladene Bildwand.</p></div></div>
+        <div class="gallery-grid">
+          <figure><img src="images/IMG_1912_s.jpg" alt="Restaurantinnenraum mit Tageslicht" /></figure>
+          <figure><img src="images/IMG_1971_s.jpg" alt="Gedeckter Tisch im Gastraum" /></figure>
+          <figure><img src="images/IMG_1979_s.jpg" alt="Tisch mit Glas und Blume" /></figure>
+          <figure><img src="images/IMG_1960_s.jpg" alt="Elegant gedeckter Tisch" /></figure>
+          <figure><img src="images/IMG_1977_s.jpg" alt="Abendlicher Restaurantblick" /></figure>
+          <figure><img src="images/IMG_1982_s.jpg" alt="Bar und Gastraum" /></figure>
+          <figure><img src="images/IMG_1988_s.jpg" alt="Weinflaschen" /></figure>
+          <figure><img src="images/IMG_2008_s.jpg" alt="Team des Restaurants" /></figure>
+          <figure><img src="images/IMG_2015_s.jpg" alt="Koch in der Küche" /></figure>
+          <figure><img src="images/IMG_20081_s.jpg" alt="Gäste im Restaurant" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="downloads">
+      <div class="container">
+        <div class="section-head"><div class="section-title"><h2>Download & Originalkarten</h2><p>Wie auf der alten Download-Seite können aktuelle Aktionen und Speisekarten kostenlos als PDF-Dokumente heruntergeladen werden. Zusätzlich ist der Originaltext der PDFs direkt in dieser Webseite enthalten.</p></div></div>
+        <div class="downloads">
+          <a class="download" href="pdfs/hauptkarte.pdf" target="_blank" rel="noopener"><strong>Hauptkarte</strong><span>Speisen, Getränke, Desserts</span><span>PDF öffnen</span></a>
+          <a class="download" href="pdfs/tageskarte.pdf" target="_blank" rel="noopener"><strong>Tageskarte</strong><span>Aktuelle Gerichte</span><span>PDF öffnen</span></a>
+          <a class="download" href="pdfs/sonderaktion-degustazione.pdf" target="_blank" rel="noopener"><strong>Sonderaktion</strong><span>Degustazione</span><span>PDF öffnen</span></a>
+          <a class="download" href="pdfs/weinangebot.pdf" target="_blank" rel="noopener"><strong>Weinangebot</strong><span>Cantina-Angebote</span><span>PDF öffnen</span></a>
+          <a class="download" href="pdfs/weinkarte.pdf" target="_blank" rel="noopener"><strong>Weinkarte</strong><span>I Vini</span><span>PDF öffnen</span></a>
+        </div>
+        <div style="margin-top:34px" id="originalRoot"></div>
+      </div>
+    </section>
+
+    <section class="section alt" id="gaestebuch-links">
+      <div class="container">
+        <div class="section-head"><div class="section-title"><h2>Gästebuch & Links</h2><p>Der alte Gästebuch-Bereich war als eigener Menüpunkt vorhanden, aber nicht verfügbar. Der Hinweis bleibt erhalten und wird sauberer dargestellt.</p></div></div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">✍️</div><h3>Gästebuch</h3><p>Derzeit nicht verfügbar. Dieser Hinweis ersetzt die alte eingebettete Gästebuch-Ansicht.</p></article>
+          <article class="card"><div class="card-icon">🔗</div><h3>Links</h3><p>Wichtige Ziele sind direkt erreichbar: Anfahrt, PDF-Karten, Kontakt, Impressum und Reservierung per Telefon.</p></article>
+          <article class="card"><div class="card-icon">📶</div><h3>Services</h3><p>Catering, private Veranstaltungen, Essen zum Mitnehmen, Hochzeiten und kostenloses WLAN.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontakt">
+      <div class="container">
+        <div class="section-head"><div class="section-title"><h2>Kontakt & Anfahrt</h2><p>Alle Kontaktdaten sind prominent sichtbar. Für Reservierungen wird direkt der Telefonlink genutzt.</p></div></div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Ristorante L'Isoletta</h3>
+            <p>Italienisches Restaurant in Olpe</p>
+            <ul class="contact-list">
+              <li>📍 Westfälische Straße 21, 57462 Olpe</li>
+              <li>📞 <a href="tel:+4927612626">02761 2626</a></li>
+              <li>📠 Fax: 02761 8338996</li>
+              <li>✉️ <a href="mailto:info@lisoletta-olpe.de">info@lisoletta-olpe.de</a></li>
+              <li>✉️ <a href="mailto:mario.girardi@t-online.de">mario.girardi@t-online.de</a></li>
+            </ul>
+            <div style="margin-top:26px; display:flex; gap:12px; flex-wrap:wrap;"><a class="btn btn-primary" href="tel:+4927612626">Reservieren</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Westf%C3%A4lische%20Stra%C3%9Fe%2021%2057462%20Olpe" target="_blank" rel="noopener">Route öffnen</a></div>
+            <p class="note">Zahlungsmöglichkeiten: AMEX, Barzahlung, MasterCard, VISA und EC-Karte.</p>
+          </div>
+          <div class="map-placeholder"><div><h3>Westfälische Straße 21</h3><p>Datenschutzfreundlich: Google Maps wird erst beim Klick geöffnet.</p><a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Westf%C3%A4lische%20Stra%C3%9Fe%2021%2057462%20Olpe" target="_blank" rel="noopener">In Google Maps anzeigen</a></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating-call"><a class="btn btn-primary" href="tel:+4927612626">📞 Tisch telefonisch reservieren</a></div>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Ristorante L'Isoletta Olpe</p>
+      <p>Italienisches Restaurant · Pasta · Pizza · Fisch · Fleisch · Wein</p>
+    </div>
+    <div class="container legal">
+      <p><strong>Impressum-Informationen aus der alten Seite:</strong> Ristorante L'Isoletta · Inhaber: Mario Girardi und F. Ferrara · Westfälische Str. 21 · 57462 Olpe · Tel.: (0 27 61) 26 26 · Fax: (0 27 61) 8 33 89 96. WebDesign: MDK MEDIADESIGN. Copyright: Ristorante L'Isoletta. Alle Rechte vorbehalten.</p>
+      <p style="margin-top:10px">Hinweis: Vor Live-Schaltung bitte Impressum, Datenschutz, Preise, Öffnungszeiten, Allergen-/Zusatzstoffangaben und rechtliche Pflichtangaben final prüfen.</p>
+    </div>
+  </footer>
+
+  <script>
+    const SITE_DATA = {"sections": [{"id": "aperitifs", "title": "Apéritifs", "subtitle": "Klassische Aperitivi für den Start", "note": "", "items": [["1", "Crodino", "", "6,50 €"], ["2", "Campari Orange", "", "8,50 €"], ["3", "Hugo", "", "8,50 €"], ["4", "Kir Royal", "", "9,50 €"], ["5", "Martini", "", "7,50 €"], ["6", "Sherry", "", "7,50 €"], ["7", "Prosecco", "", "8,50 €"], ["8", "Aperol Spritz", "", "8,50 €"]]}, {"id": "salate", "title": "Insalata", "subtitle": "Salate", "note": "Salat mit Cocktail-Sauce, auf Wunsch mit Essig und Öl.", "items": [["100", "Insalata Verde", "Grüner Salat mit Zwiebeln", "9,50 €"], ["101", "Insalata Primavera", "Kleiner gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten und Gurken", "12,50 €"], ["102", "Insalata Italia", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse und Ei", "15,50 €"], ["103", "Insalata Capri", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei und Thunfisch", "17,50 €"], ["104", "Insalata con Manzo", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken und Rindfleischstreifen", "25,50 €"], ["105", "Insalata Firenze", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei, Mozzarella und Parmaschinken", "17,50 €"], ["106", "Insalata con Salmone", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken und Lachs", "19,50 €"], ["107", "Insalata Chef", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei und gebackenen Krabben", "18,50 €"], ["108", "Insalata Maxi", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei und Putenbrust", "17,50 €"], ["109", "Bruschetta", "Geröstetes Brot mit frischen Tomaten (6 Stück)", "9,50 €"]]}, {"id": "antipasti-freddi", "title": "Antipasti Freddi", "subtitle": "Kalte Vorspeisen", "note": "", "items": [["110", "Mozzarella caprese", "Mozzarella mit Tomaten und Basilikum", "15,50 €"], ["111", "Insalata di mare", "Fischsalat", "18,50 €"], ["112", "Filetto al carpaccio", "Rohes Rindfleisch, hauchdünn geschnitten", "18,50 €"], ["115", "Antipasto Firenze", "Von allem ein wenig", "20,50 €"], ["116", "Vitello tonnato", "Kalbfleisch unter Thunfischsauce", "18,50 €"], ["117", "Bresaola con Parmigiano", "Luftgetrockneter Rinderschinken mit Parmesankäse", "18,50 €"]]}, {"id": "antipasti-caldi", "title": "Antipasti Caldi", "subtitle": "Warme Vorspeisen", "note": "", "items": [["118", "Lumache burro e aglio o con panna", "Sechs Schnecken in Kräuter- oder Rahmsauce", "14,50 €"], ["119", "Melanzana alla parmigiana", "Überbackene Aubergine mit Schinken", "15,50 €"], ["120", "Antipasto del sultano", "Überbackenes Gemüse", "17,50 €"]]}, {"id": "zuppe", "title": "Zuppe", "subtitle": "Suppen", "note": "", "items": [["121", "Crema di pomodoro", "Tomatensuppe", "8,50 €"], ["122", "Stracciatella alla romana", "Kraftbrühe mit geschlagenem Ei", "8,50 €"], ["124", "Tortellini in brodo", "Kraftbrühe mit Tortellini", "8,50 €"]]}, {"id": "pasta", "title": "Pasta", "subtitle": "Nudelgerichte", "note": "", "items": [["129", "Spaghetti al bolognese", "Spaghetti mit Bolognesesauce (nur Rind)", "14,50 €"], ["130", "Spaghetti aglio, olio e peperoncino", "Spaghetti mit Knoblauchsauce, scharf gewürzt", "14,50 €"], ["131", "Spaghetti alla vongole", "Spaghetti mit Venusmuscheln", "17,50 €"], ["132", "Spaghetti alla Marinara", "Spaghetti mit Meeresfrüchten", "18,50 €"], ["133", "Tortellini alla panna", "Tortellini mit Schinken und Sahne", "15,50 €"], ["134", "Tortellini emiliani", "Tortellini mit Parmaschinken und Erbsen", "17,50 €"], ["136", "Tortellini al Tartufo", "Tortellini in feiner Trüffelsauce", "20,50 €"], ["137", "Tortellini Chef", "Tortellini mit Putenfleisch", "16,50 €"], ["139", "Rigatoni ai quattro formaggi", "Rigatoni mit vier verschiedenen Käsesorten", "16,50 €"], ["140", "Rigatoni al gorgonzola", "Rigatoni in feiner Gorgonzolasauce", "16,50 €"], ["141", "Rigatoni vegetali", "Rigatoni mit Gemüse", "15,50 €"], ["143", "Tagliatelle ai gamberini", "Bandnudeln in feiner Spinat-Krabben-Sauce", "17,50 €"], ["144", "Tagliatelle Paradiso", "Bandnudeln mit Putenstreifen in Sauce nach Art des Hauses", "17,50 €"], ["145", "Tagliatelle taglialegna", "Bandnudeln mit Rindfleischstreifen und Pilzen", "21,50 €"], ["147", "Tagliatelle al salmone", "Bandnudeln mit frischem Lachs", "19,50 €"], ["148", "Pasta mista per due", "Gemischte Nudelplatte für zwei Personen", "42,00 €"]]}, {"id": "pasta-al-forno", "title": "Pasta al forno", "subtitle": "Überbackene Nudeln", "note": "", "items": [["149", "Rigatoni gratinati", "Rigatoni in Tomaten-Sahne-Sauce mit Schinken", "15,50 €"], ["150", "Lasagna", "Schichtnudeln mit Bechamel- und Fleischsauce", "15,50 €"], ["151", "Orecchiette", "Muschelnudeln, scharf gewürzt", "15,50 €"], ["153", "Combinazione di pasta", "Verschiedene Nudeln überbacken", "15,50 €"], ["154", "Tortellini al forno", "Tortellini mit Tomaten-Sahne-Sauce", "15,50 €"], ["155", "Lasagna pasticciata", "Schichtnudeln mit Schinken und Pilzen", "15,50 €"], ["156", "Rigatoni mamma Margherita", "Rigatoni mit Schinken, Pilzen und Erbsen", "15,50 €"]]}, {"id": "pizza", "title": "Pizze", "subtitle": "Pizza aus dem Ofen", "note": "Bei Pizza Calzone: mit Käse- oder Bolognesesauce 2,50 € extra.", "items": [["157", "Pizza Margherita", "Tomaten und Käse", "11,50 €"], ["158", "Pizza Salami", "Tomaten, Käse und Salami", "12,50 €"], ["159", "Pizza Rucola", "Tomaten, Käse, Rucola, frische Tomaten und Parmesan", "15,50 €"], ["160", "Pizza Parma", "Tomaten, Käse, Rucola, frische Tomaten, Parmesan und Parmaschinken", "18,00 €"], ["161", "Pizza Firenze", "Tomaten, Käse, Schinken, Oliven, Pilze und Artischocken", "15,50 €"], ["162", "Pizza Sciaquarone", "Tomaten, Käse, Salami, Schinken, Sardellen, Zwiebeln und Peperoni", "15,50 €"], ["163", "Pizza Toscana", "Tomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Peperoniwurst", "15,50 €"], ["164", "Pizza Capri", "Tomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Paprika", "15,50 €"], ["165", "Pizza Calzone", "Tomaten, Käse, Schinken, Salami, Pilze", "15,00 €"], ["166", "Pizza quattro-Stagioni", "Tomaten, Käse, Schinken, Salami, Pilze und Paprika", "15,50 €"], ["167", "Pizza Rustica", "Tomaten, Käse, Thunfisch und Zwiebeln", "15,50 €"], ["168", "Pizza con Scampi", "Tomaten, Käse und Krabben", "17,00 €"], ["169", "Pizza Popeye", "Tomaten, Käse, Mozzarella, Spinat und Knoblauch", "15,00 €"], ["170", "Pizza Regina", "Tomaten, Käse, Pilze und Schinken", "14,50 €"], ["171", "Pizza Vegetaria", "Tomaten, Käse und Gemüse", "15,50 €"], ["172", "Pizza del Capo", "Tomaten, Käse, Mozzarella und Parmaschinken", "17,00 €"]]}, {"id": "manzo", "title": "Carni di Manzo", "subtitle": "Fleischgerichte vom Angusrind, ca. 250 g", "note": "Zu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.", "items": [["173", "Bistecca ai ferri", "Rumpsteak vom Grill mit Kräuterbutter", "36,50 €"], ["175", "Bistecca con cipolla", "Rumpsteak mit Zwiebeln", "36,50 €"], ["176", "Bistecca Madagaskar", "Rumpsteak mit grüner Pfeffersauce", "36,50 €"], ["177", "Bistecca Firenze", "Rumpsteak nach Art des Hauses", "34,50 €"], ["180", "Filetto ai ferri", "Rinderfilet vom Grill mit Kräuterbutter", "40,50 €"], ["181", "Filetto Firenze", "Rinderfilet nach Art des Hauses", "40,50 €"], ["182", "Filetto Gorgonzola", "Rinderfilet in feiner Gorgonzolasauce", "40,50 €"], ["184", "Filetto Madagaskar", "Rinderfilet in grüner Pfeffersauce", "40,50 €"], ["186", "Filetto al tartufo", "Rinderfilet in feiner Trüffelsauce", "43,50 €"]]}, {"id": "vitello", "title": "Carni di Vitello", "subtitle": "Kalbsfleisch", "note": "Zu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.", "items": [["187", "Scaloppine al Marsala", "Kalbsmedaillons in Marsalasauce", "30,50 €"], ["188", "Scaloppine Firenze", "Kalbsmedaillons nach Art des Hauses", "30,50 €"], ["189", "Scaloppine al gorgonzola", "Kalbsmedaillons in feiner Gorgonzolasauce", "30,50 €"], ["191", "Saltinbocca alla romana", "Kalbsmedaillons mit Schinken und Salbei", "30,50 €"]]}, {"id": "per-due", "title": "Piatti per due", "subtitle": "Fleischgerichte für zwei Personen", "note": "", "items": [["194", "Chateaubriand", "Rosa gebratenes Rinderfilet mit diversen Beilagen", "88,00 €"], ["195", "Mix Grill", "Verschiedene Fleischsorten mit diversen Beilagen", "80,00 €"], ["196", "Sella d'Agnello", "Lammrücken mit diversen Beilagen", "80,00 €"]]}, {"id": "agnello", "title": "Agnello", "subtitle": "Irisches Salzwiesenlamm", "note": "", "items": [["197", "Cotoletta d'Agnello alla griglia", "Lammkotelett aus dem Lammkarree, vom Grill", "35,50 €"], ["198", "Filetto d'Agnello della casa", "Lammfilet nach Art des Hauses", "35,50 €"]]}, {"id": "maiale", "title": "Carni di Maiale", "subtitle": "Fleischgerichte vom Schwein", "note": "Zu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.", "items": [["200", "Cotoletta alla cacciatore", "Jägerschnitzel", "21,50 €"], ["202", "Cotoletta alla panna", "Rahmschnitzel", "21,50 €"], ["204", "Cotoletta al gorgonzola", "Schnitzel mit Gorgonzolasauce", "21,50 €"]]}, {"id": "bambini", "title": "Per noi bambini", "subtitle": "Für unsere kleinen Gäste", "note": "", "items": [["205", "Cotoletta Pinocchio", "Schnitzel mit Pommes Frites", "10,50 €"], ["206", "Spaghetti L'Alpe Maja", "Spaghetti mit Tomatensauce", "9,50 €"]]}, {"id": "pesce", "title": "Pesce", "subtitle": "Fisch", "note": "Zu allen Fischgerichten reichen wir Pasta und Salat. Falls Sie ein anderes Fischgericht bevorzugen, fragen Sie bitte unser Service-Team.", "items": [["210", "Calamari alla romana", "Frittierter Tintenfisch", "29,50 €"], ["211", "Calamari alla marinara", "Tintenfisch in pikanter Tomatensauce", "29,50 €"], ["212", "Gamberoni provinciale", "Scampi in pikanter Tomatensauce", "31,50 €"], ["213", "Gamberoni Chef", "Scampi nach Art des Hauses", "31,50 €"], ["214", "Gamberoni alla griglia", "Gegrillte Scampi", "31,50 €"], ["215", "Sogliola alla griglia", "Gegrillte Seezunge", "Tagespreis"], ["216", "Sogliola al pepe", "Seezunge in grüner Pfeffersauce", "Tagespreis"], ["217", "Salmone della casa", "Lachs nach Art des Hauses", "Tagespreis"]]}, {"id": "contorni", "title": "Contorni", "subtitle": "Beilagen", "note": "Auf Wunsch können Sie zu allen Gerichten zusätzliche Beilagen bestellen.", "items": [["", "Broccoli", "", "6,50 €"], ["", "Spinat", "", "6,50 €"], ["", "Salat", "", "6,50 €"], ["", "Kroketten", "", "6,50 €"], ["", "Rosmarinkartoffeln", "", "6,50 €"], ["", "Pommes Frites", "", "6,50 €"]]}, {"id": "dessert", "title": "Dessert", "subtitle": "Dolci", "note": "Einige Desserts sind saisonabhängig.", "items": [["220", "Panna Cotta", "Klassisches Sahnedessert", "10,50 €"], ["222", "Zabaione", "Italienische Weinschaumcreme", "10,50 €"], ["223", "Tiramisù", "Tiramisu", "10,50 €"], ["224", "Tortino al choco", "Schokoladensoufflé", "10,50 €"], ["225", "Gelato di vaniglia con lamponi caldi", "Vanilleeis mit heißen Himbeeren", "10,50 €"]]}, {"id": "getraenke-alkoholfrei", "title": "Bevande analcoliche", "subtitle": "Alkoholfreie Getränke", "note": "", "items": [["9", "Acqua Panna 0,75 l", "", "8,50 €"], ["10", "Acqua Panna 0,25 l", "", "3,50 €"], ["11", "San Pellegrino 0,25 l", "", "3,50 €"], ["12", "Coca Cola 0,3 l", "", "3,70 €"], ["13", "Fanta 0,3 l", "", "3,70 €"], ["14", "Apfelsaft 0,2 l", "", "3,50 €"], ["15", "Orangensaft 0,2 l", "", "3,50 €"], ["16", "Coca Cola light 0,3 l", "", "3,70 €"], ["17", "Fassbrause 0,33 l", "", "3,80 €"], ["18", "Traubensaft 0,2 l", "", "3,50 €"], ["19", "Bitter Lemon 0,2 l", "", "3,50 €"], ["20", "Sprite 0,3 l", "", "3,70 €"], ["21", "Ginger Ale 0,2 l", "", "3,50 €"], ["94", "San Pellegrino 0,75 l", "", "8,50 €"]]}, {"id": "warme-getraenke", "title": "Bevande calde", "subtitle": "Warme Getränke", "note": "", "items": [["22", "Kaffee", "", "3,00 €"], ["23", "Espresso", "", "3,00 €"], ["24", "Cappuccino", "", "3,80 €"], ["25", "Kakao", "", "3,80 €"], ["26", "Espresso affogato", "", "5,50 €"], ["27", "Tee", "", "3,50 €"], ["95", "Doppio Espresso", "", "3,80 €"], ["98", "Latte Macchiato", "", "4,80 €"]]}, {"id": "offene-weine", "title": "Vini sfusi", "subtitle": "Offene Weine", "note": "0,25 l", "items": [["28", "Lugana Bulgarini", "Weißwein, trocken (Gardasee)", "11,50 €"], ["29", "Pinot grigio", "Weißwein, trocken (Veneto)", "8,50 €"], ["30", "Verdicchio", "Weißwein, trocken (Marche)", "8,50 €"], ["31", "Frizzantino", "Weißwein, lieblich (Toskana)", "7,50 €"], ["32", "Primitivo", "Rotwein, trocken (Apulien)", "8,50 €"], ["33", "Bardolino", "Rotwein, halbtrocken (Gardasee)", "8,50 €"], ["34", "Lambrusco", "Rotwein, lieblich (Emilia Romagna)", "7,50 €"], ["35", "Rosato", "Rosé, trocken (Lazio)", "7,50 €"], ["36", "Montepulciano", "Rotwein, trocken (Abruzzo)", "8,50 €"], ["37", "Soler De Stefani", "Rotwein, trocken (Veneto)", "15,00 €"]]}, {"id": "bier", "title": "Birre", "subtitle": "Bier", "note": "Birra alla spina und Birra in bottiglia.", "items": [["38", "Krombacher Pils 0,2 l", "Bier vom Fass", "2,70 €"], ["39", "Krombacher Pils 0,3 l", "Bier vom Fass", "3,70 €"], ["40", "Rhenania Alt 0,2 l", "Bier vom Fass", "3,00 €"], ["41", "Rhenania Alt 0,4 l", "Bier vom Fass", "5,00 €"], ["42", "Alkoholfreies Radler 0,4 l", "Flaschenbier", "4,80 €"], ["43", "Weizen 0,5 l", "Flaschenbier", "5,50 €"], ["44", "Alkoholfreies Pils 0,33 l", "Flaschenbier", "3,80 €"], ["45", "Malzbier 0,33 l", "Flaschenbier", "3,80 €"]]}, {"id": "mixgetraenke", "title": "Bevande combinate", "subtitle": "Mixgetränke", "note": "", "items": [["46", "Krefelder 0,4 l", "Altbier mit Cola", "4,80 €"], ["47", "Alster 0,3 l", "Bier mit Fanta", "3,70 €"], ["48", "Flieger 0,3 l", "Bier mit Cola", "3,70 €"], ["49", "Apfelschorle 0,3 l", "", "3,70 €"], ["50", "Radler 0,3 l", "Bier mit Sprite", "3,70 €"], ["51", "Schuss 0,3 l", "Bier mit Malzbier", "3,70 €"], ["52", "Spezi 0,3 l", "Cola mit Fanta", "3,70 €"]]}, {"id": "digestivi", "title": "Digestivi", "subtitle": "Digestifs", "note": "", "items": [["53", "Ramazotti 4cl", "", "4,90 €"], ["54", "Averna 4cl", "", "4,90 €"], ["55", "Apfelkorn 2cl", "", "3,00 €"], ["56", "Malteser 2cl", "", "3,50 €"], ["57", "Sambuca 2cl", "", "3,50 €"], ["60", "Underberg 2cl", "", "3,50 €"], ["61", "Fernet Branca 2cl", "", "3,50 €"], ["62", "Jägermeister 2cl", "", "3,50 €"], ["63", "Marsala 4cl", "", "4,00 €"], ["64", "Amaretto 4cl", "", "4,50 €"]]}, {"id": "grappe-rum", "title": "Grappe casa Berta & Ron Zacapa", "subtitle": "Grappa 2cl und Rum", "note": "Auswahl besonderer Digestifs.", "items": [["67", "Tre solo Tre di Barolo", "Grappa Tre Soli Tre, Berta, Piemont. Rebsorte Nebbiolo da Barolo, etwa acht Jahre Fasslagerung, Aromen von reifem Obst, Kakao und Vanille.", "13,50 €"], ["68", "Bric del Gaian di Moscato", "Sehr milder und aromatischer Grappa mit feinem Moscatoton, Rosenholz und Zitrusfrüchten.", "13,50 €"], ["69", "Roccanivo di Barbera", "Grappa aus Barbera d'Asti, Ausbau in Eichenholzfässern, Noten von Gewürzen, Marascino, Waldbeeren, Schokolade und Vanille.", "13,50 €"], ["70", "Magia di Brachetto, Barbera, Malvasia", "Riserva Magia mit zehnjähriger Reifung im Holzfass, dunkle Früchte, Gewürze, Tabak und Vanille.", "14,50 €"], ["71", "Grappa Berta Elisi", "Aus 50 % Barbera d'Asti, 25 % Nebbiolo da Barolo und 25 % Cabernet.", "7,60 €"], ["72", "Ron Zacapa Sistema 23 Solera Gran Reserva", "2cl", "10,00 €"], ["73", "Ron Zacapa Centenario XO Gran Reserva Especial", "2cl", "17,00 €"]]}], "tageskarte": [["Carpaccio di bietola rossa", "Rote Beete Carpaccio mit Flusskrebsen", "18,50 €"], ["Spaghetti chitarra al tartufo", "Selbstgemachte Spaghetti mit frischem Sommertrüffel", "24,50 €"], ["Pizza con carpaccio caldo", "Warmes Anguscarpaccio auf Pizza mit Rucola, Parmesan und frischem Trüffel", "27,50 €"], ["Tagliata di manzo", "Tranchiertes Black Angussteak auf Rucola und Parmesan, dazu Rosmarinkartoffeln", "37,50 €"], ["Orata alla Griglia", "Gegrilltes Doradenfilet mit Pasta und Salat", "32,50 €"], ["Panna Cotta con fragole", "Panna Cotta mit frischen Erdbeeren", "10,50 €"]], "weinangebote": [["Cantina Bulgarini", "Bulgarini Lugana DOC 2022", "6 × 0,75 l", "Der aktuelle Jahrgang macht mit intensivem Strohgelb und grünen Reflexen auf sich aufmerksam.", "90,00 €"], ["Cantina Mocavero", "Primitivo Santufilli 2018", "6 × 0,75 l", "Violett strahlende, intensive rote Farbe, Gewürz- und Konfitüreanklänge, ausgewogenes Tannin.", "119,00 €"]], "degustationen": [{"title": "Degustazione 07. & 08. November 2025", "time": "Einlass 18:30 Uhr · Beginn 19:00 Uhr", "price": "159,00 € pro Person inkl. Weine der Kellerei Cantina KURTATSCH", "items": [["Salmone alla bietola rossa", "Geröstetes Brot mit Rote-Beete-Lachs"], ["Carpaccio di wagyu ai Porcini", "Carpaccio vom Wagyurind"], ["Risotto", "Risotto mit Salicornia, Scampi e Bottarga"], ["Pasta con Tartufo", "Nudeln mit Trüffeln"], ["Filetto di Manzo", "Black Angus Filet in Rotweinsauce"], ["Panna Cotta", "Dessert"]], "note": "Lassen Sie sich von unserem Rahmenprogramm überraschen. Änderungen vorbehalten."}, {"title": "Degustazione 16.11.2025", "time": "Einlass: 12:30 Uhr bis 18:00 Uhr", "price": "178,00 € pro Person", "items": [["Riva di Refrontolo Prosecco", "Bruschettone Salmone e Burrata"], ["Vitaly", "Carpaccio di Manzo mit Pilzen"], ["Manzoni", "Risotto Bottarga e Scampi"], ["Pinot Grigio", "Spaghetti alla chitarra con Tartufo"], ["Soler", "Black Angusfilet al vino rosso"], ["Kreda / Amarone", "Tortino al chocolat"], ["Passito", "Dessertwein"]], "note": "Menüfolge laut Sonderaktionskarte."}], "originals": [{"title": "Hauptkarte – Originaltext aus dem PDF", "file": "pdfs/hauptkarte.pdf", "pages": [{"page": 1, "text": "Apéritifs\n1 Crodino\nEuro 6,50\n5 Martini\nEuro 7,50\n2 Campari Orange\nEuro 8,50\n6 Sherry\nEuro 7,50\n3 Hugo\nEuro 8,50\n7 Prosecco\nEuro 8,50\n4 Kir Royal\nEuro 9,50\n8 Aperol Spritz\nEuro 8,50\nInsalata\n(Salate)\n100 Insalata Verde\nEuro  9,50\nGrüner Salat mit Zwiebeln\n101 Insalata Primavera\nEuro 12,50\nKleiner gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten und Gurken\n102 Insalata Italia\nEuro 15,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse und Ei\n103 Insalata Capri\nEuro 17,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei und Thunfisch\n104 Insalata con Manzo\nEuro 25,50\nGemischter Salat mit Mais, Paprika, Zwiebeln Tomaten, Gurken\nund Rindfleischstreifen\n105 Insalata Firenze\nEuro 17,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei, Mozzarella und Parmaschinken\n106 Insalata con Salmone\nEuro 19,50\nGemischter Salat mit Mais, Paprika, Zwiebeln Tomaten, Gurken\nund Lachs\n107 Insalata Chef\nEuro 18,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei und gebackenen Krabben\n108 Insalata Maxi\nEuro 17,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei und Putenbrust\n109 Bruschetta\nEuro 9,50\nGeröstetes Brot mit frischen Tomaten (6 Stück)"}, {"page": 2, "text": "Antipasti\n(Kalte Vorspeisen)\n110 Mozzarella caprese\nEuro 15,50\nMozzarella mit Tomaten und Basilikum\n111 Insalata di mare\nEuro 18,50\nFischsalat\n112 Filetto al carpaccio\nEuro 18,50\nRohes Rindfleisch, hauchdünn geschnitten\n115 Antipasto Firenze\nEuro 20,50\nVon allem ein wenig\n116 Vitello tonnato\nEuro 18,50\nKalbfleisch unter Thunfischsauce\n117 Bresaola con Parmigiano\nEuro 18,50\nLuftgetrockneter Rinderschinken mit Parmesankäse\nAntipasti Caldi\n(Warme Vorspeisen)\n118 Lumache burro e aglio o con panna\nEuro 14,50\nSechs Schnecken in Kräuter- oder Rahmsauce\n119 Melanzana alla parmigiana\nEuro 15,50\nÜberbackene Aubergine mit Schinken\n120 Antipasto del sultano\nEuro 17,50\nÜberbackenes Gemüse\nZuppe\n(Suppen)\n121 Crema di promodoro\nEuro 8,50\nTomatensuppe\n122 Stracciatella alla romana\nEuro 8,50\nKraftbrühe mit geschlagenem Ei\n124 Tortellini in brodo\nEuro 8,50\nKraftbrühe mit Tortellini"}, {"page": 3, "text": "Pasta\n(Nudelgerichte)\n129 Spaghetti al  bolognese\nEuro  14,50\nSpaghetti mit Bolognesesauce ( Nur Rind  )\n130 Spaghetti aglio oglio e peperoncino\nEuro  14,50\nSpaghetti mit Knoblauchsauce, scharf gewürzt\n131 Spaghetti alla vongole\nEuro 17,50\nSpaghetti mit Venusmuscheln\n132 Spaghetti alla Marinara\nEuro 18,50\nSpaghetti mit Meeresfrüchten\n133 Tortellini alla panna\nEuro 15,50\nTortellini mit Schinken und Sahne\n134 Tortellini emiliani\nEuro 17,50\nTortellini mit Parmaschinken und Erbsen\n136 Tortellini al Tartufo\nEuro 20,50\nTortellini in feiner Trüffelsauce\n137 Tortellini Chef\nEuro 16,50\nTortellini mit Putenfleisch\n139 Rigatoni ai quattro formaggi\nEuro 16,50\nRigatoni mit vier verschiedenen Käsesorten\n140 Rigatoni al gorgonzola\nEuro 16,50\nRigatoni in feiner Gorgonzolasauce\n141 Rigatoni vegetali\nEuro 15,50\nRigatoni mit Gemüse\n143 Tagliatelle ai gamberini\nEuro 17,50\nBandnudeln in feiner Spinat-Krabben-Sauce\n144 Tagliatelle Paradiso\nEuro 17,50\nBandnudeln mit Putenstreifen in Sauce nach Art des Hauses\n145 Tagliatelle taglialegna\nEuro 21,50\nBandnudeln mit Rindfleischstreifen und Pilzen\n147 Tagliatelle al salmone\nEuro 19,50\nBandnudeln mit frischem Lachs\n148 Pasta mista per due\nEuro 42,00\nGemischte Nudelplatte für zwei Personen"}, {"page": 4, "text": "Pasta al forno\n(Überbackene Nudeln)\n149 Rigatoni gratinati\nEuro 15,50\nRigatoni in Tomaten-Sahne-Sauce mit Schinken\n150 Lasagna\nEuro 15,50\nSchichtnudeln mit Bechamel- und Fleischsauce\n151 Orecchiette\nEuro 15,50\nMuschelnudeln, scharf gewürzt\n153 Combinazione di pasta\nEuro 15,50\nVerschiedene Nudeln überbacken\n154 Tortellini al forno\nEuro 15,50\nTortellini mit Tomaten-Sahne-Sauce\n155 Lasagna pasticciata\nEuro 15,50\nSchichtnudeln mit Schinken und Pilzen\n156 Rigatoni mamma Margherita\nEuro 15,50\nRigatoni mit Schinken, Pilzen und Erbsen\nPizze\n157 Pizza Margherita\nEuro  11,50\nTomaten und Käse\n158 Pizza Salami\nEuro 12,50\nTomaten, Käse und  Salami\n159 Pizza Rucola\nEuro 15,50\nTomaten, Käse, Rucola, frische Tomaten und Parmesan\n160 Pizza Parma\nEuro 18,00\nTomaten, Käse, Rucola, frische Tomaten, Parmesan und Parmaschinken\n161 Pizza Firenze\nEuro 15,50\nTomaten, Käse, Schinken, Oliven, Pilze und Artischocken\n162 Pizza Sciaquarone\nEuro 15,50\nTomaten, Käse, Salami, Schinken, Sardellen, Zwiebeln und Peperoni\n163 Pizza Toscana\nEuro 15,50\nTomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Peperoniwurst\n164 Pizza Capri\nEuro 15,50\nTomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Paprika\n165 Pizza Calzone\nEuro 15,00\nTomaten, Käse, Schinken, Salami, Pilze\n(mit Käse- oder Bolognesesauce 2,50 € extra)\n166 Pizza quattro-Stagioni\nEuro 15,50\nTomaten, Käse, Schinken, Salami, Pilze und Paprika\n167 Pizza Rustica\nEuro 15,50\nTomaten, Käse, Thunfisch und Zwiebeln\n168 Pizza con Scampi\nEuro 17,00\nTomaten, Käse und Krabben\n169 Pizza Popeye\nEuro 15,00\nTomaten, Käse, Mozzarella, Spinat und Knoblauch\n170 Pizza Regina\nEuro 14,50\nTomaten, Käse, Pilze und Schinken\n171 Pizza Vegetaria\nEuro 15,50\nTomaten, Käse und Gemüse\n172 Pizza del Capo\nEuro 17,00\nTomaten, Käse, Mozzarella und Parmaschinken"}, {"page": 5, "text": "Carni di Manzo\n(Fleischgerichte vom Angusrind, circa 250 g)\nZu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.\n173 Bistecca ai ferri\nEuro 36,50\nRumpsteak vom Grill mit Kräuterbutter\n175 Bistecca con cipolla\nEuro 36,50\nRumpsteak mit Zwiebeln\n176 Bistecca Madagaskar\nEuro 36,50\nRumpsteak mit grüner Pfeffersauce\n177 Bistecca Firenze\nEuro 34,50\nRumpsteak nach Art des Hauses\n180 Filetto ai ferri\nEuro 40,50\nRinderfilet vom Grill mit Kräuterbutter\n181 Filetto Firenze\nEuro 40,50\nRinderfilet nach Art des Hauses\n182 Filetto Gorgonzola\nEuro 40,50\nRinderfilet in feiner Gorgonzolasauce\n184 Filetto Madagaskar\nEuro 40,50\nRinderfilet in grüner Pfeffersauce\n186 Filetto al tartufo\nEuro 43,50\nRinderfilet in feiner Trüffelsauce\nCarni di Vitello\n(Kalbsfleisch)\nZu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.\n187 Scaloppine al Marsala\nEuro 30,50\nKalbsmedaillons in Marsalasauce\n188 Scaloppine Firenze\nEuro 30,50\nKalbsmedaillons nach Art des Hauses\n189 Scaloppine al gorgonzola\nEuro 30,50\nKalbsmedaillons in feiner Gorgonzolasauce\n191 Saltinbocca alla romana\nEuro  30,50\nKalbsmedaillons mit Schinken und Salbei"}, {"page": 6, "text": "Piatti per due\n(Fleischgerichte für zwei Personen)\n194 Chateaubriand\nEuro 88,00\nRosa gebratenes Rinderfilet mit diversen Beilagen\n195 Mix Grill\nEuro 80,00\nVerschiedene Fleischsorten mit diversen Beilagen\n196 Sella d`Agnello\nEuro 80,00\nLammrücken mit diversen Beilagen\nAgnello\n(Irisches Salzwiesenlamm)\n197 Cotoletta d`Agnello alla griglia\nEuro 35,50\nLammkotelett aus dem Lammkarree, vom Grill\n198 Filetto d`Agnello della casa\nEuro 35,50\nLammfilet nach Art des Hauses\nCarni di Maiale\n(Fleischgerichte vom Schweine)\n200 Cotoletta alla cacciatore\nEuro  21,50\nJägerschnitzel\n202 Cotoletta alla panna\nEuro  21,50\nRahmschnitzel\n204 Cotoletta al gorgonzola\nEuro  21,50\nSchnitzel mit Gorgonzolasauce\nZu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.\nPer noi bambini\n(Für unsere kleinen Gäste)\n205 Cotoletta Pinocchio\nEuro 10,50\nSchnitzel mit Pommes Frites\n206 Spaghetti L´Alpe Maja\nEuro 9,50"}, {"page": 7, "text": "Spaghetti mit Tomatensauce\nPesce\n(Fisch)\nZu allen Fischgerichten reichen wir Pasta und Salat.\n210 Calamari alla romana\nEuro 29,50\nFrittierter Tintenfisch\n211 Calamari alla marinara\nEuro 29,50\nTintenfisch in pikanter Tomatensauce\n212 Gamberoni provinciale\nEuro 31,50\nScampi in pikanter Tomatensauce\n213 Gamberoni chef\nEuro 31,50\nScampi nach Art des Hauses\n214 Gamberoni alla griglia\nEuro 31,50\nGegrillte Scampi\n215 Sogliola alla griglia\nTagespreis\nGegrillte Seezunge\n216 Sogliola al pepe\nTagespreis\nSeezunge in grüner Pfeffersauce\n217 Salmone della casa\nTagespreis\nLachs nach Art des Hauses\nFalls Sie ein anderes Fischgericht bevorzugen, fragen Sie bitte unsere Kellner.\nContorni\n(Beilagen)\nBroccoli\nEuro 6,50\nKroketten\nEuro 6,50\nSpinat\nEuro 6,50\nRosmarinkartoffeln  Euro 6,50\nSalat\nEuro 6,50\nPommes Frites\nEuro 6,50\nAuf Wunsch können Sie zu allen Gerichten zusätzliche Beilagen bestellen.\nDessert\n220 Panna cotta\nEuro 10,50\n223 Tiramisù\nEuro 10,50\nKlassisches Sahnedessert                                                           Tiramisu\n224 Tortino al choco  Euro 10,50                          222 Zabaione\nEuro 10,50\nSchokoladensoufflé                                                                   Italienische Weinschaumcreme"}, {"page": 8, "text": "Einige unserer Desserts sind saisonabhängig.\nBevande analcoliche\n(Alkoholfreie Getränke)\n11 San Pellegrino 0,25 l\nEuro 3,50\n18 Traubensaft 0,2 l\nEuro 3,50\n12 Coca Cola 0,3 l\nEuro 3,70\n19 Bitter Lemon 0,2 l\nEuro 3,50\n13 Fanta 0,3 l\nEuro 3,70\n20 Sprite 0,3 l\nEuro 3,70\n14 Apfelsaft 0,2 l\nEuro 3,50\n21 Ginger Ale 0,2 l\nEuro 3,50\n15 Orangensaft 0,2 l\nEuro 3,50\n10 Acqua Panna 0,25 l\nEuro 3,50\n16 Coca Cola light 0,3 l\nEuro 3,70\n9 Acqua Panna 0,75 l\nEuro 8,50\n17 Fassbrause 0,33 l\nEuro 3,80\n94 San Pellegrino 0,75 l\nEuro 8,50\nBevande calde\n(Warme Getränke)\n22 Kaffee\nEuro 3,00\n25 Kakao\nEuro 3,80\n23 Espresso\nEuro 3,00\n26 Espresso affogato\nEuro 5,50\n24 Cappuccino\nEuro 3,80\n27 Tee\nEuro 3,50\n95 Doppio Espresso\nEuro 3,80\n98 Latte Macchiato\nEuro 4,80\nVini sfusi\n(Offene Weine)\n28 Lugana Bulgarini 0,25 l\nEuro 11,50\n33 Bardolino 0,25 l\nEuro 8,50\nWeißwein, trocken (Gardasee)\nRotwein, halbtrocken (Gardasee)\n29 Pinot grigio\n0,25 l\nEuro 8,50\n34 Lambrusco 0,25 l\nEuro 7,50\nWeißwein, trocken (Veneto)\nRotwein, lieblich (Emilia Romagna)\n30 Verdicchio 0,25 l\nEuro 8,50\n35 Rosato 0,25 l\nEuro 7,50\nWeißwein, trocken (Marche)\nRose, trocken (Lazio)\n31 Frizzantino 0,25 l\nEuro 7,50\n36 M. pulciano 0,25 l\nEuro 8,50\nWeißwein, lieblich (Toskana)                                                     Rotwein, trocken (Abruzzo)\n32 Primitivo 0,25 l\nEuro 8,50\n37 Soler De Stefani 0,25 l\nEuro 15,00"}, {"page": 9, "text": "Rotwein, trocken (Apulien)                                                       Rotwein, trocken (Veneto)\nBirre\n(Bier)\nBirra alla spina\nBirra in bottiglia\nBier vom Fass\nFlaschenbier\n38 Krombacher Pils  0,2 l\nEuro 2,70\n42 Alkoholfreies Radler 0,4 l\nEuro 4,80\n39 Krombacher Pils 0,3 l\nEuro 3,70\n43 Weizen 0.5 l\nEuro 5,50\n40 Rhenania Alt 0,2 l\nEuro 3,00\n44 Alkoholfreies Pils 0,33 l\nEuro 3,80\n41 Rhenania Alt 0,4 l\nEuro 5,00\n45 Malzbier 0,33 l\nEuro 3,80\nBevande combinate\n(Mixgetränke)\n46 Krefelder 0,4 l\nEuro 4,80\n50 Radler 0,3 l\nEuro 3,70\nAltbier mit Cola                                                                        Bier mit Sprite\n47 Alster 0,3 l\nEuro 3,70\n51 Schuss 0,3 l\nEuro 3,70\nBier mit Fanta                                                                            Bier mit Malzbier\n48 Flieger 0,3 l\nEuro 3,70\n52 Spezi 0,3 l                          Euro 3,70\nBier mit Cola\nCola mit Fanta\n49 Apfelschorle 0,3 l\nEuro 3,70\nDigestivi\n53 Ramazotti  4cl\nEuro 4,90\n60 Underberg  2cl\nEuro 3,50\n54 Averna 4cl\nEuro 4,90\n61 Fernet Branca 2cl\nEuro 3,50\n55 Apfelkorn  2cl\nEuro 3,00\n62 Jägermeister 2cl\nEuro 3,50\n56 Malteser 2cl\nEuro 3,50\n63 Marsala\n4cl\nEuro 4,00\n57 Sambuca  2cl\nEuro 3,50\n64 Amaretto  4cl\nEuro 4,50"}, {"page": 10, "text": "Grappe casa Berta\n(Grappa 2cl)\n67 Tre solo Tre di barolo\nEuro 13,50\nGrappa Tre Soli Tre, Berta, Piemont. Rebsorte: Nebbiolo da Barolo. Etwa 8 Jahre Fass-\nlagerung. Duft: Reich, einhüllend mit großer Persönlichkeit. Wunderbares Konzert von\nAromen, die vor allem an reifes Obst (schwarze Johannisbeere, Aprikose, Sauerkirsche),\nKakao und Vanille erinnern.\n68 Bric del Gaian di moscato\nEuro 13,50\nEin sehr milder und aromatischer Grappa mit einem feinen Moscatoton. Mit seinem Duft nach\nRosenholz und Zitrusfrüchten ist der Bric del Gaian Grappa di Moscato d Asti ein insgesamt\nweicher und geschmeidiger Grappa, der viele Jahre im Fass gereift ist.\n69 Roccanivo di barbera\nEuro 13,50\nDieser Grappa wird aus Trauben der Sorte Barbera d'Asti gebrannt, die aus der Gegend von\nMombaruzzo stammen. Die Tenuta Roccanivo ist im Besitz der Familie Berta. Die\nDestillation erfolgt diskontinuierlich. Das Destillat wird in 225 Liter großen Eichenholz-\nfässern mit mittlerer Toastung ausgebaut und hat dadurch einen bernsteinfarbenen Ton.\nGewürzaromen, Marascino, Waldbeeren, Schokolade und Vanille.\nReich, delikat, von großer Harmonie und Dichte.\n70 Magia di Brachetto, Barbera, Malvasia\nEuro 14,50\nDie Riserva Magia bietet nach zehnjähriger Reifung im Holzfass einen wunderbar runden\nDuft mit Aromen von dunklen Früchten und Gewürzen, fein untermalt von Tabak- und\nVanillenoten. Im Geschmack eine schwere Süße mit elegantem Tannin und fruchtig-bitterem\nAbgang. Ein wertvoller Digestif auf hohem Niveau.\n71 Grappa Berta elisi\nEuro 7,60\nAus 50% Barbera d'Asti, 25% Nebbiolo da Barolo und 25% Cabernet. Eleganz und\nKomplexität von Aromen ist das Ergebnis einer sorgfältigen Auswahl sehr guter Grappe, die\nin den letzten zehn Jahren hergestellt wurden und in Fässern aus Eichenholz gereift sind.\nRon Zacapa  2cl\n72 Ron Zacapa Sistema 23 solera Gran Riserva\nEuro   10,00\n73 Ron Zacapa Centenario XO Gran Reserva Especial\nEuro   17,00\n."}]}, {"title": "Tageskarte – Originaltext aus dem PDF", "file": "pdfs/tageskarte.pdf", "pages": [{"page": 1, "text": "Tageskarte\nCarpaccio di bietola rossa\n18,50 €\nRote Beete Carpaccio mit Flusskrebsen\nSpaghetti chitarra al tartufo\n24,50 €\nSelbstgemachte Spaghetti mit frischem Sommertrüffel\nPizza con carpaccio caldo\n27,50 €\nWarmes Anguscarpaccio auf Pizza mit Rucola, Parmesan\nund frischem Trüffel\nTagliata di manzo\n37,50 €\nTranchiertes Black Angussteak auf Rucola und Parmesan\ndazu Rosmarinkartoffeln\nOrata alla Griglia\n32,50 €\nGegrilltes Doradenfilet mit Pasta und Salat\nPanna Cotta con fragole\n10,50 €\nPanna Cotta mit frischen Erdbeeren"}]}, {"title": "Sonderaktion / Degustazione – Originaltext aus dem PDF", "file": "pdfs/sonderaktion-degustazione.pdf", "pages": [{"page": 1, "text": "Degustazione 07. & 08. November 2025\nSalmone alla bietola rossa\nGeröstetes Brot mit Rote Beete  Lachs\nCarpaccio di wagyu ai Porcini\nCarpaccio vom Wagyurind\nRisotto\nRisotto mit Salicornia Scampi e Bottarga\nPasta con Tartufo\nNudeln mit Trüffeln\nFiletto di Manzo\nBlack Angus Filet in Rotweinsauce\nPanna Cotta\nEinlass 18.30 Uhr\nBeginn 19,00 Uhr\nPreis 159,00,- pro Person incl. Weine der Kellerei Cantina KURTATSCH\nLassen Sie sich von unserem Rahmenprogramm überraschen!\nÄnderungen vorbehalten"}, {"page": 2, "text": "Degustazione 16.11.2025\nRiva di refrontolo Prosecco\nBruschettone Salmone e burrata\nGerosttBrot mit Lachs und Burrata\nVitaly\nCarpaccio di Manzo\nRindecarpaccio mit Pilzen\nManzoni\nRisotto bottarga  e scampi\nRisotto mit Salicornia Scampi e Bottarga\nPinot Grigio\nSpaghetti alla chitarra  con Tartufo\nNudeln  mit   Trüffel\nSoler\nBlack Angusfilet al vino rosso\nBackangusfilet   in Rotweinsauce\nKreda/Amarone\nTortino al chocolat\nPassito\nEinlass: 12:30 Uhr bis 18.00\nPreis: 178,00 Euro p.P"}]}, {"title": "Weinangebot – Originaltext aus dem PDF", "file": "pdfs/weinangebot.pdf", "pages": [{"page": 1, "text": "Cantina Bulgarini\nBulgarini Lugana DOC 2022\n6x 0,75l\nDer aktuelle Jahrgang des Bulgarini Lugana DOC 2022 macht mit seinem sehr\nintensiven Strohgelb, mit grünen Reflexen auf sich aufmerksam.\n90,00 EUR\nInhalt 4,5 Liter\n15,33 EUR / Liter\ninkl. 19% USt. , zzgl. Versand"}, {"page": 2, "text": "Cantina Mocavero\nPrimitivo Santufilli  2018\n6 x 0,75 L\nSantufili hat eine violett strahlende, intensive, rote Farbe.Anspielungen auf Gewürze und\nKonfitüre im intensiven Duft, ausgewogenes Tannin.\n119,00 €\nInhalt 4,5 Liter\n25,33 € / Liter\ninkl. 19% USt. , zzgl. Versand\n•"}]}, {"title": "Weinkarte – Originaltext aus dem PDF", "file": "pdfs/weinkarte.pdf", "pages": [{"page": 1, "text": "Ristorante\nL`Isoletta\nI Vini"}, {"page": 2, "text": "Weißwein\n. . . . Roero Arneis DOCG „Anterisio“\n– Cascina\nAnbaugebiet: Piemont\nRebsorte:\nArneis\nBeschreibung: Strohgelb mit grünem Schimmer. Intensives und persistentes Bukett\nmit Noten von Aprikose, Apfel und dezenten Anklängen von Kamille\nund Gewürzen. Am Gaumen würzig, gut strukturiert und harmonisch.\nLanger Abgang.\n. . . . Lugana DOC – Bulgarini\nAnbaugebiet: Lombardei\nRebsorte:\nTurbiana\nBeschreibung: Strohgelb mit grünlichen Reflexen. Typisches und fruchtiges Bukett\nmit einer delikaten Note von Pfirsich und Aprikose. Am Gaumen\nentscheidend frisch und würzig, ausgestattet mit einer guten Struktur\nund einer langen aromatischen Beständigkeit, im Finale eine leichte\nMandelnote.\n. . . . Vernaccia DOCG „I Macchioni“\n– Casa alle Vacche\nAnbaugebiet: Toskana\nRebsorte:\nVernaccia\nBeschreibung: Helles Strohgelb mit grünlichen Reflexen. Üppiges Bukett mit Noten\nvon reifer Frucht und Mandeln. Am Gaumen trocken, harmonisch mit\nangenehmer Frische und gut eingebundener Mandelnote.\n. . . . Vermentino DOC „Benas“ – Cantina della Vernaccia\nAnbaugebiet: Sardinien\nRebsorte:\nVermentino\nBeschreibung: Leuchtendes Strohgelb. Intensives Bukett mit edlen Noten von\nZitrusfrüchten und weißen Blumen. Trockener Geschmack. Am\nGaumen weich mit mittlerem Körper."}, {"page": 3, "text": "Rotwein\n0,75l\n. . . . Chianti Classico DOCG\n– Fattoria di Rodano\nAnbaugebiet: Toskana\nRebsorte:\nSangiovese 90%, Canaiolo nero 5%, Colorino 5%\nBeschreibung: Intensives Rubinrot. Ausgeprägtes Bukett mit erdigen Tönen und\nNoten von roten Kirschen und Tabak. Mittlerer Körper,\nFruchtaromen und exzellente Struktur. Persistent im Finale.\n. . . . Bolgheri DOC Superiore „Sor Ugo“\n– Aia Vecchia\nAnbaugebiet: Toskana\nRebsorte:\nCabernet Sauvignon, Merlot, Cabernet Franc, Petit Verdot (Barrique)\nBeschreibung: Intensives Dunkelrot. Üppiges Bukett mit Noten von Waldbeeren\nund Gewürzen. Lang, tief, komplex und vollmundig mit\nmineralischen Noten. Sehr gute Struktur und Konzentration.\n. . . . Toscana IGT Rosso „Lagone“ – Aia Vecchia\nAnbaugebiet: Toskana\nRebsorte:\nMerlot, Cabernet Sauvignon, Cabernet Franc (Barrique)\nBeschreibung: Intensives Dunkelrot. Frisches Bukett mit dezenten Noten von\nWaldbeeren, Holz und Vanille. Der Geschmack ist strukturiert und\nelegant von einzigartiger Weichheit und Persistenz im Zusammenspiel\nmit Gewürz- und Kirscharomen.\n. . . . Montepulciano DOC \"Dama\" – Marramiero\nAnbaugebiet: Abruzzen\nRebsorte:\nMontepulciano\nBeschreibung: Sattes Rubinrot mit granatroten Nuancen. In der Nase langlebig\nmit Lakritznoten. Am Gaumen reichhaltig, harmonisch und vollmundig."}, {"page": 4, "text": "Rotwein\n0,75l\n. . . . Cannonau  Anzenas  – Cantine dolia nova\nAnbaugebiet: Sardinien\nRebsorte:\nCannunau\nBeschreibung: Intensives Rubinrot. Einladendes Bukett mit Noten von frischer, roter\nFrucht und Gewürzen. Im Mund reichhaltig, vollmundig mit feinen\nTanninen, die Länge und Persistenz verleihen. Frisch, angenehm, wohl\nschmeckend, gut strukturiert mit exzellentem Finale mit Anklängen an\nfrischem Obst.\n. . . . Primitivo Salento IGP „Santufili“ – Bulgarini\n€ 39,00\nAnbaugebiet: Apulien\nRebsorte:\nPrimitivo (Barrique)\nBeschreibung: Violett strahlendes, eindringliches Rot;\nAnspielungen auf Gewürze und Konfitüre im\nintensiven Duft;\nausgewogenes Tannin. Sehr persistenter\nNachhall.\n….Tignanello Antinori  0,75\nDer Antinori Tignanello 2020 ist ein herausragender Wein aus der Toskana, der sich durch seine\nEleganz und Komplexität auszeichnet. Mit einer sorgfältigen Komposition aus Sangiovese,\nCabernet Sauvignon und Cabernet Franc vereint dieser Rotwein das Beste der toskanischen\nWeintradition mit moderner Weinbereitung. Die Trauben stammen aus den besten Lagen des\nTignanello-Weinbergs, was dem Wein seine unverwechselbare Charakteristik verleiht.\nIm Glas präsentiert sich der Tignanello in einem tiefen Rubinrot. Die Nase wird von einem\nintensiven Bouquet aus reifen Kirschen, dunklen Beeren und Pflaumen begrüßt, ergänzt durch\nNoten von Vanille, Tabak und einer feinen Würze. Am Gaumen überzeugt er mit einer perfekten\nBalance aus Fruchtigkeit, Säure und Tanninen. Die Aromen entfalten sich vielschichtig und\nführen zu einem langanhaltenden, samtigen Abgang.\nDer Tignanello 2020 passt hervorragend zu kräftigen Fleischgerichten, Pasta mit reichhaltigen\nSaucen und gereiftem Käse. Seine Vielseitigkeit macht ihn zu einem idealen Begleiter sowohl für\nfestliche Anlässe als auch für entspannte Abende zu Hause. Dank seines Alterungspotenzials wird\ndieser Wein mit den Jahren noch komplexer und nuancierter, was ihn zu einer ausgezeichneten\nWahl für Weinliebhaber und Sammler macht."}, {"page": 5, "text": ",,,,Val di Suga Brunello di Montalcino DOCG 2019\nRebsorte: 100% Sangiovese Grosso\nFarbe: Intensives Rubinrot mit granatroten Reflexen\nBeschreibung: Der Val di Suga Brunello di Montalcino DOCG präsentiert ein lebendiges\nBouquet beginnend mit eleganten, präzisen, sehr feinen Noten von dunklen Kirschen, Pflaumen\nund Veilchen. Es öffnet sich dann ein breites und komplexes Duftspektrum von Heidelbeere,\nVanille, Tabak, Zimt, Schokolade und Leder, mit einem herrlichen frisch-minzigem Finish. Am\nGaumen ist der Wein elegant, kraftvoll und knackig. Die Anklänge von Kirsche und\ndunklen Beeren hallen noch lange nach. Der Val di Suga Brunello di Montalcino DOCG passt\nideal zu Braten, Gegrillten, Wild und mittelreifem Käse.\n,,,,Feudi di San Gregorio Taurasi DOCG\nANBAUGEBIET: Kampanien\nJAHR: 2018\nERZEUGER: Feudi San Gregorio\nREBSORTEN: Aglianico\nFARBE: rot\nALKOHOLGEHALT: 13%\nStrahlendes Rubinrot mit granatroten Reflexen, duftende Aromen von Sauerkirschen\nund Schattenmorellen, Zimt und Muskatnuss, Vanille und Anis. Der\nGeschmack ist voll und ausgewogen mit süßen und weichen Tanninen,\ndie ihm eine gute aromatische Nachhaltigkeit verleihen."}, {"page": 6, "text": "DE STEFANI SOLÈR\nTRAUBENSORTEN: 20% Merlot, 20% Cabernet Sauvignon, 20% Carmenere, 20%\nRefosco, 20% Marzemino.\n\"Solèr\" ist ein venezianisches Dialektwort, das Dachboden,\nKornkammer bedeutet. Einmal wurden dort die besten Trauben von den Weinbauern\ngetrocknet, denn der \"Solèr\" war gut belüftet, kaum feucht und sehr sonnig. Der\nAusdruck\n„solèr“ kommt nämlich vom Wort \"Sonne\", die zum Trocknen der Trauben notwendig ist.\nANBAUGEBIET: die Marzemino-Trauben wachsen auf dem Besitz Colvendrame in\nRefrontolo, der in den Hügeln zwischen Conegliano und Valdobbiadene liegt. Die\nRefosco-,\nCarmenere-, Merlot- und Cabernet Sauvignon-Trauben werden auf dem Besitz Le\nRonche in\nFossalta di Piave.\nDE STEFANI MALANOTTE\nEinzelweinberg\nTrauben: 100%  Raboso eine autochthone Rebsorte dunkelblauer Trauben, seit\nDer Malanotte del Piave wird mit Raboso Trauben erzeugt, der die\nbekannteste autochthone Weinrebe des Piavegebiets ist. Zu den\nCharakteristiken, die den groβen langlebigen Weinen eigen sind, wie Farbe\nTannine und Säuregehalt, gesellen sich kräftige Aromen nach Brombeeren\nund Kirschen. Die Nähe des Weinbergs zum Meer und zu den Dolomiten,\nseine dichte Bepflanzung und der tonreiche Boden verleihen dem Wein\nrobusten Körper und natürliche Harmonie."}, {"page": 7, "text": "De Stefani KREDA\nCru\nTrauben: Refosco\nTRAUBE: 100% Refosco dal peduncolo rosso.\nZUR GESCHICHTE: \"Kreda\" ist ein venezianisches Dialektwort, das Lehm\nbedeutet. Die Trauben des Refosco dal peduncolo rosso wachsen auf lehmhaltigen\nnach Veilchen, mit hervorstechenden, flüchtigen und würzigen Noten;\nvollmundiger, beeindruckender, umhüllender, sehr samtiger Geschmack und mit\nkomplexen Tertiär-Aromen.EMPFEHLUNG: ideal zu Risotto, zu jeglicher Art von Braten,\nvor allem Lammbraten\n.\nDe Stefani AMARONE\nTrauben: Corvina, Corvinone, Rondinella, Croatina.\nDer Prozess des \"Trocknens\" verleiht diesem Wein Körper, Weichheit und\neine großartige Persönlichkeit. Er wird in einem herrlichen Weinberg in\nValpolicella bei Verona am Fuße der Dolomiten hergestellt.\nAmarone Bailo hat starke Noten von reifen Kirschen, Pflaumen und\nBrombeeren; wichtige Struktur, dicke und samtige Tannine und reichliches\nBouquet."}, {"page": 8, "text": "DE STEFANI OLMÈRA\nCru\nTrauben: Tocai und Sauvignon blanc\nSein Name erinnert an den in der Nähe liegenden alten Ulmenwald, von denen\nheute noch welche zu finden sind. Diese Ulmen haben den Boden mit ganz\nbesonderen Stoffen angereichert, die dem Wein außerordentliche Struktur und\nPersonalität verleihen.\nPRODUKTBEZEICHNUNG: Bianco Veneto I.G.T.\nTRAUBENSORTEN: 60% Tocai – 40% Sauvignon Blanc. Der Tocai gibt dem Wein\nseinen Körper und seine Struktur, während der Sauvignon blanc Aroma und Eleganz\nverleiht.kel und waagerecht lagern. Die Struktur des Weins ermöglicht\ndie Verfeinerung während der Flaschenreifung, die auch bis zu 15 Jahren andauern\nkann. Optimale Qualität wird 7-8 Jahren nach der Weinlese erzielt.\nALKOHOLGEHALT: 13,5-15% vol. (abhängig vom Jahrgang).\nDE STEFANI  PINOT GRIGIO\n34,00 €\nTrauben: Pinot Grigio\nSeit mehr als 50 Jahren wächst unser Pinot Grigio in tonhaltigen,\nklimatisch günstigen Lagen, nahe dem Meer und der Berge. Dieser\nWeiβwein zeichnet sich durch eine groβe Aromenvielfalt aus, die\nvom Duft nach exotischen Früchten bis zu zarten Gewürznoten\nreicht und ein angenehmes Mundgefühl durch Fülle und langem\nNachhall am Gaumen hervorruft."}, {"page": 9, "text": "DE STEFANI VÈNIS\nTrauben: Sauvignon Blanc\nDer Vènis soll eine gebührende Anerkennung auf den venezianischen\nHandelsgeist aussprechen. Die üppigen Bankette der Venezianer des\nSettecento hoben den exotischen Geschmack der Gewürze und anderer\nKöstlichkeiten hervor, die aus den faszinierendsten Ländern importiert\nwurden und die vorzüglich zum Sauvignon blanc passten.\nKöstlichkeiten hervor, die aus den faszinierendsten Ländern importiert wurden\nund die vorzüglich zum Sauvignon blanc passten..\nDE STEFANI Blanc de Noir\nTrauben:\nRaboso\nlanc\nde\nNoir\nwird\naus\neinheimischen\nRaboso-Trauben\nin\neinem\nWeinberg\nzwischen\nAdria\nund\nder\nAlpen\ngewonnen.\nEs\nduftet\nangenehm\nnach\nHeidelbeeren,\nJohannisbeeren,\nWalderdbeeren\nund\nGranatapfel.\nAm\nGaumen\nist\nes\nfrisch,\nzart\nsaftig\nund\nmit\neinem\nanhaltenden\nGeschmack.\nTECHNISCHE\nDATEN\nPRODUKTBEZEICHNUNG:\nRosé.\nTRAUBENSORTEN:\n100%\nRaboso.\nANBAUGEBIET:\nes\nwird\nin\neinem\nWeinberg\nzwischen\nder\nAdria\nund\nden\nAlpen\nhergestellt.\nBODENBESCHAFFENHEIT:\nSchwemmland,\n„caranto“\nbezeichnet,\nbestehend aus weißem Lehm und Sedimentgestein aus den Dolomiten."}, {"page": 10, "text": "De Stefani\nVALDOBBIADENE PROSECCO SUPERIORE\nDOCG Brut Millesimato\nTrauben: Glera\nDie Heimat des Valdobbiadene Prosecco Superiore Docg Brut ist die\nzauberhafte Hügellandschaft im Norden von Venedig, ein UNESCO-\nWeltkulturerbe, wo die Trauben dieses Prosecco reifen. Die beträchtlichen\nTemperaturschwankungen zwischen Tag und Nacht erzeugen ein ideales\nMikroklima, das dem Wein seine unverwechselbare Eleganz, seine\nangenehme Frische und sein intensives Aroma nach Golden Delicious\nÄpfeln und Akazienblüten verleiht."}]}]};
+
+    const mobileToggle = document.getElementById("mobileToggle");
+    const navLinks = document.getElementById("navLinks");
+    mobileToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      mobileToggle.textContent = navLinks.classList.contains("open") ? "×" : "☰";
+    });
+    document.querySelectorAll(".nav-links a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open"); mobileToggle.textContent = "☰";
+    }));
+
+    const slug = (str) => str.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+
+    function renderMenu() {
+      const root = document.getElementById("menuRoot");
+      const jump = document.getElementById("menuJump");
+      jump.innerHTML = SITE_DATA.sections.map(section => `<button class="chip" type="button" data-target="${section.id}">${escapeHtml(section.title)}</button>`).join("");
+      root.innerHTML = SITE_DATA.sections.map(section => `
+        <section class="menu-section-block" id="${section.id}" data-section>
+          <div class="menu-heading">
+            <div><h3>${escapeHtml(section.title)}</h3><p>${escapeHtml(section.subtitle)}</p></div>
+            <span class="chip">${section.items.length} Einträge</span>
+          </div>
+          <div class="menu-grid">
+            ${section.items.map(item => `
+              <article class="menu-item" data-menu-item data-search="${escapeHtml((item[0] + ' ' + item[1] + ' ' + item[2] + ' ' + section.title + ' ' + section.subtitle).toLowerCase())}">
+                <div class="menu-number">${escapeHtml(item[0] || '•')}</div>
+                <div class="menu-copy"><h4>${escapeHtml(item[1])}</h4>${item[2] ? `<p>${escapeHtml(item[2])}</p>` : ''}</div>
+                <div class="menu-price">${escapeHtml(item[3])}</div>
+              </article>
+            `).join("")}
+          </div>
+          ${section.note ? `<p class="note">${escapeHtml(section.note)}</p>` : ''}
+        </section>
+      `).join("");
+      document.querySelectorAll(".chip[data-target]").forEach(btn => btn.addEventListener("click", () => document.getElementById(btn.dataset.target).scrollIntoView({behavior:"smooth", block:"start"})));
+    }
+
+    function renderSpecials() {
+      const root = document.getElementById("specialRoot");
+      const tages = `<article class="special-card"><h3>Tageskarte</h3>${SITE_DATA.tageskarte.map(row => `<div class="special-line"><strong>${escapeHtml(row[0])}</strong><span>${escapeHtml(row[1])}</span><div class="price-big">${escapeHtml(row[2])}</div></div>`).join("")}<p class="note"><a href="pdfs/tageskarte.pdf" target="_blank" rel="noopener">Tageskarte als PDF öffnen</a></p></article>`;
+      const wein = `<article class="special-card"><h3>Weinangebote</h3>${SITE_DATA.weinangebote.map(row => `<div class="special-line"><strong>${escapeHtml(row[0])}</strong><span>${escapeHtml(row[1])} · ${escapeHtml(row[2])}</span><p class="note">${escapeHtml(row[3])}</p><div class="price-big">${escapeHtml(row[4])}</div></div>`).join("")}<p class="note"><a href="pdfs/weinangebot.pdf" target="_blank" rel="noopener">Weinangebot als PDF öffnen</a></p></article>`;
+      const degust = SITE_DATA.degustationen.map(d => `<article class="special-card"><h3>${escapeHtml(d.title)}</h3><p class="note">${escapeHtml(d.time)}</p>${d.items.map(row => `<div class="special-line"><strong>${escapeHtml(row[0])}</strong><span>${escapeHtml(row[1])}</span></div>`).join("")}<div class="price-big">${escapeHtml(d.price)}</div><p class="note">${escapeHtml(d.note)}</p></article>`).join("");
+      root.innerHTML = tages + wein + degust;
+    }
+
+    function renderOriginals() {
+      const root = document.getElementById("originalRoot");
+      root.innerHTML = SITE_DATA.originals.map((doc, index) => `
+        <details class="original" ${index === 0 ? 'open' : ''}>
+          <summary>${escapeHtml(doc.title)} · <a href="${escapeHtml(doc.file)}" target="_blank" rel="noopener">PDF öffnen</a></summary>
+          <div class="original-content">
+            ${doc.pages.map(page => `<div class="original-page"><h4>Seite ${page.page}</h4><pre>${escapeHtml(page.text)}</pre></div>`).join("")}
+          </div>
+        </details>
+      `).join("");
+    }
+
+    function setupSearch() {
+      const input = document.getElementById("menuSearch");
+      const reset = document.getElementById("resetSearch");
+      const run = () => {
+        const q = input.value.trim().toLowerCase();
+        document.querySelectorAll("[data-menu-item]").forEach(item => {
+          item.classList.toggle("hidden", q && !item.dataset.search.includes(q));
+        });
+        document.querySelectorAll("[data-section]").forEach(section => {
+          const visible = [...section.querySelectorAll("[data-menu-item]")].some(item => !item.classList.contains("hidden"));
+          section.classList.toggle("hidden", q && !visible);
+        });
+      };
+      input.addEventListener("input", run);
+      reset.addEventListener("click", () => { input.value = ""; run(); input.focus(); });
+    }
+
+    renderMenu();
+    renderSpecials();
+    renderOriginals();
+    setupSearch();
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
