@@ -121,7 +121,20 @@
     .hour-row { display:grid; grid-template-columns: 130px 1fr; gap:18px; padding:16px 18px; border-radius:18px; background:rgba(255,244,223,.055); border:1px solid rgba(255,244,223,.08); }
     .hour-row span { color: var(--cream-2); }
     .closed { color:#ffb4a2 !important; font-weight:800; }
-    .menu-tools { position: sticky; top: 78px; z-index: 40; padding: 18px; border-radius: 24px; background: rgba(23,16,12,.88); backdrop-filter: blur(18px); border:1px solid var(--line); margin-bottom: 32px; display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center; box-shadow:0 12px 40px rgba(0,0,0,.22); }
+    .menu-tools {
+      position: sticky;
+      top: 78px;
+      z-index: 40;
+      border-radius: 24px;
+      background: rgba(23,16,12,.88);
+      backdrop-filter: blur(18px);
+      border:1px solid var(--line);
+      margin-bottom: 32px;
+      box-shadow:0 12px 40px rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .menu-tools-summary { display:none; }
+    .menu-tools-panel { padding:18px; display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center; }
     .search { min-height:48px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background:rgba(255,244,223,.06); color:var(--cream); outline:none; width:100%; }
     .search::placeholder { color: rgba(255,244,223,.55); }
     .menu-jump { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:34px; }
@@ -182,6 +195,150 @@
     .original-page { border-top:1px solid rgba(255,244,223,.1); padding-top:18px; margin-top:18px; }
     .original-page h4 { margin-bottom:10px; color:var(--cream); }
     .original-page pre { white-space:pre-wrap; color:var(--cream-2); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:13px; line-height:1.6; }
+
+    /* Polished document/card presentation replacing the dry PDF text view */
+    .document-showcase { display:grid; gap:18px; margin-top:34px; }
+    .document-details {
+      border:1px solid var(--line);
+      border-radius:30px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(200,155,92,.13), transparent 34%),
+        linear-gradient(180deg, rgba(255,244,223,.075), rgba(255,244,223,.028));
+      box-shadow:0 18px 54px rgba(0,0,0,.22);
+      scroll-margin-top:120px;
+    }
+    .document-details > summary {
+      list-style:none;
+      cursor:pointer;
+      padding:24px 26px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:center;
+      border-bottom:1px solid rgba(255,244,223,.08);
+    }
+    .document-details > summary::-webkit-details-marker { display:none; }
+    .document-title { display:flex; align-items:center; gap:16px; }
+    .document-icon {
+      width:50px; height:50px; border-radius:18px; display:grid; place-items:center;
+      background:rgba(200,155,92,.16); color:var(--gold-2); font-size:24px;
+      border:1px solid rgba(232,197,131,.22);
+    }
+    .document-title h3 { font-size:30px; margin-bottom:2px; }
+    .document-title p { color:var(--muted); font-size:14px; }
+    .document-summary { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .document-panel { padding:26px; }
+    .polished-intro {
+      padding:22px; border-radius:24px; background:rgba(15,11,8,.38);
+      border:1px solid rgba(255,244,223,.1); margin-bottom:20px;
+      color:var(--cream-2);
+    }
+    .polished-intro strong { color:var(--gold-2); }
+    .category-cloud { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:12px; }
+    .category-tile {
+      border:1px solid rgba(255,244,223,.1);
+      background:rgba(255,244,223,.045);
+      border-radius:20px;
+      padding:18px;
+      min-height:120px;
+      transition:.22s ease;
+    }
+    .category-tile:hover { transform:translateY(-2px); border-color:rgba(232,197,131,.42); background:rgba(255,244,223,.07); }
+    .category-tile h4 { font-size:18px; margin-bottom:4px; font-family:Georgia,serif; }
+    .category-tile p { color:var(--muted); font-size:13px; }
+    .category-tile .count { margin-top:14px; display:inline-flex; font-size:12px; color:var(--gold-2); font-weight:900; }
+    .dish-showcase { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; }
+    .dish-card {
+      border:1px solid rgba(255,244,223,.1);
+      background:linear-gradient(180deg, rgba(255,244,223,.06), rgba(255,244,223,.025));
+      border-radius:24px;
+      padding:20px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      min-height:128px;
+      position:relative;
+      overflow:hidden;
+    }
+    .dish-card::before {
+      content:""; position:absolute; width:110px; height:110px; right:-42px; bottom:-52px;
+      border-radius:50%; background:rgba(200,155,92,.09);
+    }
+    .dish-card h4 { font-size:21px; margin-bottom:7px; font-family:Georgia,serif; position:relative; }
+    .dish-card p { color:var(--cream-2); font-size:14px; position:relative; }
+    .dish-card .price-pill {
+      align-self:start;
+      white-space:nowrap;
+      border-radius:999px;
+      padding:8px 12px;
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#1b1109;
+      font-weight:900;
+      position:relative;
+    }
+    .event-layout { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; }
+    .event-card {
+      border:1px solid rgba(255,244,223,.11);
+      border-radius:26px;
+      padding:24px;
+      background:linear-gradient(180deg, rgba(76,23,27,.32), rgba(255,244,223,.035));
+    }
+    .event-card h4 { font-size:25px; font-family:Georgia,serif; margin-bottom:8px; }
+    .event-card .time { color:var(--gold-2); font-weight:900; margin-bottom:14px; }
+    .event-course { padding:12px 0; border-top:1px solid rgba(255,244,223,.1); }
+    .event-course strong { display:block; }
+    .event-course span { color:var(--cream-2); font-size:14px; }
+    .wine-library { display:grid; gap:18px; }
+    .wine-group {
+      border:1px solid rgba(255,244,223,.10);
+      border-radius:26px;
+      padding:22px;
+      background:rgba(15,11,8,.28);
+    }
+    .wine-group-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid rgba(255,244,223,.09); }
+    .wine-group-head h4 { font-size:29px; font-family:Georgia,serif; }
+    .wine-group-head p { color:var(--muted); font-size:14px; }
+    .wine-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; }
+    .wine-card {
+      border:1px solid rgba(255,244,223,.1);
+      border-radius:22px;
+      padding:19px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(200,155,92,.10), transparent 34%),
+        rgba(255,244,223,.042);
+    }
+    .wine-card h5 { font-size:20px; line-height:1.25; font-family:Georgia,serif; margin-bottom:9px; }
+    .wine-meta { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+    .wine-meta span {
+      font-size:12px;
+      color:var(--gold-2);
+      border:1px solid rgba(232,197,131,.20);
+      background:rgba(200,155,92,.10);
+      padding:4px 8px;
+      border-radius:999px;
+      font-weight:800;
+    }
+    .wine-card p { color:var(--cream-2); font-size:14px; }
+    .quote-panel {
+      margin-top:18px;
+      border-radius:24px;
+      border:1px solid rgba(232,197,131,.18);
+      background:linear-gradient(135deg, rgba(200,155,92,.12), rgba(76,23,27,.16));
+      padding:22px;
+      color:var(--cream-2);
+    }
+    @media (max-width: 1050px) {
+      .category-cloud { grid-template-columns:repeat(3, minmax(0,1fr)); }
+      .downloads { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width: 760px) {
+      .category-cloud, .dish-showcase, .event-layout, .wine-grid { grid-template-columns:1fr; }
+      .document-details > summary { align-items:flex-start; flex-direction:column; }
+      .document-summary { justify-content:flex-start; }
+      .document-panel { padding:18px; }
+    }
+
     .contact-grid { display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
     .contact-card { padding:32px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,244,223,.08), rgba(255,244,223,.035)); border:1px solid var(--line); }
     .contact-card h3 { font-size:30px; margin-bottom:16px; }
@@ -213,7 +370,42 @@
       .photo-card.main { inset:0 0 70px 40px; }
       .cards, .hero-facts, .special-grid { grid-template-columns:1fr; }
       .menu-grid { grid-template-columns:1fr; }
-      .menu-tools { grid-template-columns:1fr; top:70px; }
+      .menu-tools {
+        position: static;
+        top:auto;
+        margin-bottom:22px;
+        border-radius:24px;
+        box-shadow:0 10px 34px rgba(0,0,0,.18);
+      }
+      .menu-tools-summary {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        padding:15px 18px;
+        list-style:none;
+        cursor:pointer;
+        font-weight:900;
+        color:var(--cream);
+      }
+      .menu-tools-summary::-webkit-details-marker { display:none; }
+      .menu-tools-summary small { color:var(--muted); font-size:12px; font-weight:800; }
+      .menu-tools-summary::after {
+        content:"+";
+        width:34px;
+        height:34px;
+        border-radius:50%;
+        display:grid;
+        place-items:center;
+        background:rgba(200,155,92,.18);
+        color:var(--gold-2);
+        font-size:22px;
+        line-height:1;
+      }
+      .menu-tools[open] .menu-tools-summary::after { content:"×"; }
+      .menu-tools-panel { padding:0 18px 18px; grid-template-columns:1fr; gap:12px; }
+      .menu-tools .search { min-height:46px; font-size:16px; }
+      .menu-tools .menu-actions { display:grid; grid-template-columns:1fr; gap:10px; }
       .section-head { align-items:flex-start; flex-direction:column; }
       .image-panel { min-height:460px; }
       .gallery-grid figure, .gallery-grid figure:nth-child(n) { grid-column:span 6; min-height:220px; }
@@ -350,10 +542,16 @@
           <div class="section-title"><h2>Vollständige Speisekarte</h2><p>Die Speisekarte ist nicht mehr auf fünf alte Unterseiten verteilt, sondern als durchsuchbare und einklappbare Karte mit Kategorien aufgebaut. So bleiben alle Gerichte erreichbar, ohne die Seite zu überladen.</p></div>
           <a class="btn" href="https://www.lisoletta-olpe.de/gfx/Karte_Lisoletta.pdf" target="_blank" rel="noopener">Hauptkarte als PDF</a>
         </div>
-        <div class="menu-tools">
-          <input id="menuSearch" class="search" type="search" placeholder="Gericht suchen, z. B. Trüffel, Pizza, Filetto, Salmone …" />
-          <div class="menu-actions"><button class="btn" id="resetSearch" type="button">Suche zurücksetzen</button><button class="btn" id="openAllMenus" type="button">Alle öffnen</button><button class="btn" id="closeAllMenus" type="button">Alle schließen</button></div>
-        </div>
+        <details class="menu-tools" id="menuTools" open>
+          <summary class="menu-tools-summary">
+            <span>🔎 Suche & Filter</span>
+            <small>optional öffnen</small>
+          </summary>
+          <div class="menu-tools-panel">
+            <input id="menuSearch" class="search" type="search" placeholder="Gericht suchen, z. B. Trüffel, Pizza, Filetto, Salmone …" />
+            <div class="menu-actions"><button class="btn" id="resetSearch" type="button">Suche zurücksetzen</button><button class="btn" id="openAllMenus" type="button">Alle öffnen</button><button class="btn" id="closeAllMenus" type="button">Alle schließen</button></div>
+          </div>
+        </details>
         <div class="menu-jump" id="menuJump"></div>
         <div id="menuRoot"></div>
       </div>
@@ -402,7 +600,7 @@
 
     <section class="section" id="downloads">
       <div class="container">
-        <div class="section-head"><div class="section-title"><h2>Download & Originalkarten</h2><p>Wie auf der alten Download-Seite können aktuelle Aktionen und Speisekarten kostenlos als PDF-Dokumente heruntergeladen werden. Zusätzlich ist der Originaltext der PDFs direkt in dieser Webseite enthalten.</p></div></div>
+        <div class="section-head"><div class="section-title"><h2>Karten, Aktionen & Weine</h2><p>Die PDF-Links bleiben erhalten. Darunter werden Hauptkarte, Tageskarte, Sonderaktionen, Weinangebote und Weinkarte jetzt nicht mehr als trockener Originaltext angezeigt, sondern als moderne, einklappbare Kartenbereiche.</p></div></div>
         <div class="downloads">
           <a class="download" href="https://www.lisoletta-olpe.de/gfx/Karte_Lisoletta.pdf" target="_blank" rel="noopener"><strong>Hauptkarte</strong><span>Speisen, Getränke, Desserts</span><span>PDF öffnen</span></a>
           <a class="download" href="https://www.lisoletta-olpe.de/gfx/tageskarte.pdf" target="_blank" rel="noopener"><strong>Tageskarte</strong><span>Aktuelle Gerichte</span><span>PDF öffnen</span></a>
@@ -463,6 +661,141 @@
   <script>
     const SITE_DATA = {"sections": [{"id": "aperitifs", "title": "Apéritifs", "subtitle": "Klassische Aperitivi für den Start", "note": "", "items": [["1", "Crodino", "", "6,50 €"], ["2", "Campari Orange", "", "8,50 €"], ["3", "Hugo", "", "8,50 €"], ["4", "Kir Royal", "", "9,50 €"], ["5", "Martini", "", "7,50 €"], ["6", "Sherry", "", "7,50 €"], ["7", "Prosecco", "", "8,50 €"], ["8", "Aperol Spritz", "", "8,50 €"]]}, {"id": "salate", "title": "Insalata", "subtitle": "Salate", "note": "Salat mit Cocktail-Sauce, auf Wunsch mit Essig und Öl.", "items": [["100", "Insalata Verde", "Grüner Salat mit Zwiebeln", "9,50 €"], ["101", "Insalata Primavera", "Kleiner gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten und Gurken", "12,50 €"], ["102", "Insalata Italia", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse und Ei", "15,50 €"], ["103", "Insalata Capri", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei und Thunfisch", "17,50 €"], ["104", "Insalata con Manzo", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken und Rindfleischstreifen", "25,50 €"], ["105", "Insalata Firenze", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei, Mozzarella und Parmaschinken", "17,50 €"], ["106", "Insalata con Salmone", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken und Lachs", "19,50 €"], ["107", "Insalata Chef", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei und gebackenen Krabben", "18,50 €"], ["108", "Insalata Maxi", "Gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken, Schinken, Käse, Ei und Putenbrust", "17,50 €"], ["109", "Bruschetta", "Geröstetes Brot mit frischen Tomaten (6 Stück)", "9,50 €"]]}, {"id": "antipasti-freddi", "title": "Antipasti Freddi", "subtitle": "Kalte Vorspeisen", "note": "", "items": [["110", "Mozzarella caprese", "Mozzarella mit Tomaten und Basilikum", "15,50 €"], ["111", "Insalata di mare", "Fischsalat", "18,50 €"], ["112", "Filetto al carpaccio", "Rohes Rindfleisch, hauchdünn geschnitten", "18,50 €"], ["115", "Antipasto Firenze", "Von allem ein wenig", "20,50 €"], ["116", "Vitello tonnato", "Kalbfleisch unter Thunfischsauce", "18,50 €"], ["117", "Bresaola con Parmigiano", "Luftgetrockneter Rinderschinken mit Parmesankäse", "18,50 €"]]}, {"id": "antipasti-caldi", "title": "Antipasti Caldi", "subtitle": "Warme Vorspeisen", "note": "", "items": [["118", "Lumache burro e aglio o con panna", "Sechs Schnecken in Kräuter- oder Rahmsauce", "14,50 €"], ["119", "Melanzana alla parmigiana", "Überbackene Aubergine mit Schinken", "15,50 €"], ["120", "Antipasto del sultano", "Überbackenes Gemüse", "17,50 €"]]}, {"id": "zuppe", "title": "Zuppe", "subtitle": "Suppen", "note": "", "items": [["121", "Crema di pomodoro", "Tomatensuppe", "8,50 €"], ["122", "Stracciatella alla romana", "Kraftbrühe mit geschlagenem Ei", "8,50 €"], ["124", "Tortellini in brodo", "Kraftbrühe mit Tortellini", "8,50 €"]]}, {"id": "pasta", "title": "Pasta", "subtitle": "Nudelgerichte", "note": "", "items": [["129", "Spaghetti al bolognese", "Spaghetti mit Bolognesesauce (nur Rind)", "14,50 €"], ["130", "Spaghetti aglio, olio e peperoncino", "Spaghetti mit Knoblauchsauce, scharf gewürzt", "14,50 €"], ["131", "Spaghetti alla vongole", "Spaghetti mit Venusmuscheln", "17,50 €"], ["132", "Spaghetti alla Marinara", "Spaghetti mit Meeresfrüchten", "18,50 €"], ["133", "Tortellini alla panna", "Tortellini mit Schinken und Sahne", "15,50 €"], ["134", "Tortellini emiliani", "Tortellini mit Parmaschinken und Erbsen", "17,50 €"], ["136", "Tortellini al Tartufo", "Tortellini in feiner Trüffelsauce", "20,50 €"], ["137", "Tortellini Chef", "Tortellini mit Putenfleisch", "16,50 €"], ["139", "Rigatoni ai quattro formaggi", "Rigatoni mit vier verschiedenen Käsesorten", "16,50 €"], ["140", "Rigatoni al gorgonzola", "Rigatoni in feiner Gorgonzolasauce", "16,50 €"], ["141", "Rigatoni vegetali", "Rigatoni mit Gemüse", "15,50 €"], ["143", "Tagliatelle ai gamberini", "Bandnudeln in feiner Spinat-Krabben-Sauce", "17,50 €"], ["144", "Tagliatelle Paradiso", "Bandnudeln mit Putenstreifen in Sauce nach Art des Hauses", "17,50 €"], ["145", "Tagliatelle taglialegna", "Bandnudeln mit Rindfleischstreifen und Pilzen", "21,50 €"], ["147", "Tagliatelle al salmone", "Bandnudeln mit frischem Lachs", "19,50 €"], ["148", "Pasta mista per due", "Gemischte Nudelplatte für zwei Personen", "42,00 €"]]}, {"id": "pasta-al-forno", "title": "Pasta al forno", "subtitle": "Überbackene Nudeln", "note": "", "items": [["149", "Rigatoni gratinati", "Rigatoni in Tomaten-Sahne-Sauce mit Schinken", "15,50 €"], ["150", "Lasagna", "Schichtnudeln mit Bechamel- und Fleischsauce", "15,50 €"], ["151", "Orecchiette", "Muschelnudeln, scharf gewürzt", "15,50 €"], ["153", "Combinazione di pasta", "Verschiedene Nudeln überbacken", "15,50 €"], ["154", "Tortellini al forno", "Tortellini mit Tomaten-Sahne-Sauce", "15,50 €"], ["155", "Lasagna pasticciata", "Schichtnudeln mit Schinken und Pilzen", "15,50 €"], ["156", "Rigatoni mamma Margherita", "Rigatoni mit Schinken, Pilzen und Erbsen", "15,50 €"]]}, {"id": "pizza", "title": "Pizze", "subtitle": "Pizza aus dem Ofen", "note": "Bei Pizza Calzone: mit Käse- oder Bolognesesauce 2,50 € extra.", "items": [["157", "Pizza Margherita", "Tomaten und Käse", "11,50 €"], ["158", "Pizza Salami", "Tomaten, Käse und Salami", "12,50 €"], ["159", "Pizza Rucola", "Tomaten, Käse, Rucola, frische Tomaten und Parmesan", "15,50 €"], ["160", "Pizza Parma", "Tomaten, Käse, Rucola, frische Tomaten, Parmesan und Parmaschinken", "18,00 €"], ["161", "Pizza Firenze", "Tomaten, Käse, Schinken, Oliven, Pilze und Artischocken", "15,50 €"], ["162", "Pizza Sciaquarone", "Tomaten, Käse, Salami, Schinken, Sardellen, Zwiebeln und Peperoni", "15,50 €"], ["163", "Pizza Toscana", "Tomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Peperoniwurst", "15,50 €"], ["164", "Pizza Capri", "Tomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Paprika", "15,50 €"], ["165", "Pizza Calzone", "Tomaten, Käse, Schinken, Salami, Pilze", "15,00 €"], ["166", "Pizza quattro-Stagioni", "Tomaten, Käse, Schinken, Salami, Pilze und Paprika", "15,50 €"], ["167", "Pizza Rustica", "Tomaten, Käse, Thunfisch und Zwiebeln", "15,50 €"], ["168", "Pizza con Scampi", "Tomaten, Käse und Krabben", "17,00 €"], ["169", "Pizza Popeye", "Tomaten, Käse, Mozzarella, Spinat und Knoblauch", "15,00 €"], ["170", "Pizza Regina", "Tomaten, Käse, Pilze und Schinken", "14,50 €"], ["171", "Pizza Vegetaria", "Tomaten, Käse und Gemüse", "15,50 €"], ["172", "Pizza del Capo", "Tomaten, Käse, Mozzarella und Parmaschinken", "17,00 €"]]}, {"id": "manzo", "title": "Carni di Manzo", "subtitle": "Fleischgerichte vom Angusrind, ca. 250 g", "note": "Zu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.", "items": [["173", "Bistecca ai ferri", "Rumpsteak vom Grill mit Kräuterbutter", "36,50 €"], ["175", "Bistecca con cipolla", "Rumpsteak mit Zwiebeln", "36,50 €"], ["176", "Bistecca Madagaskar", "Rumpsteak mit grüner Pfeffersauce", "36,50 €"], ["177", "Bistecca Firenze", "Rumpsteak nach Art des Hauses", "34,50 €"], ["180", "Filetto ai ferri", "Rinderfilet vom Grill mit Kräuterbutter", "40,50 €"], ["181", "Filetto Firenze", "Rinderfilet nach Art des Hauses", "40,50 €"], ["182", "Filetto Gorgonzola", "Rinderfilet in feiner Gorgonzolasauce", "40,50 €"], ["184", "Filetto Madagaskar", "Rinderfilet in grüner Pfeffersauce", "40,50 €"], ["186", "Filetto al tartufo", "Rinderfilet in feiner Trüffelsauce", "43,50 €"]]}, {"id": "vitello", "title": "Carni di Vitello", "subtitle": "Kalbsfleisch", "note": "Zu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.", "items": [["187", "Scaloppine al Marsala", "Kalbsmedaillons in Marsalasauce", "30,50 €"], ["188", "Scaloppine Firenze", "Kalbsmedaillons nach Art des Hauses", "30,50 €"], ["189", "Scaloppine al gorgonzola", "Kalbsmedaillons in feiner Gorgonzolasauce", "30,50 €"], ["191", "Saltinbocca alla romana", "Kalbsmedaillons mit Schinken und Salbei", "30,50 €"]]}, {"id": "per-due", "title": "Piatti per due", "subtitle": "Fleischgerichte für zwei Personen", "note": "", "items": [["194", "Chateaubriand", "Rosa gebratenes Rinderfilet mit diversen Beilagen", "88,00 €"], ["195", "Mix Grill", "Verschiedene Fleischsorten mit diversen Beilagen", "80,00 €"], ["196", "Sella d'Agnello", "Lammrücken mit diversen Beilagen", "80,00 €"]]}, {"id": "agnello", "title": "Agnello", "subtitle": "Irisches Salzwiesenlamm", "note": "", "items": [["197", "Cotoletta d'Agnello alla griglia", "Lammkotelett aus dem Lammkarree, vom Grill", "35,50 €"], ["198", "Filetto d'Agnello della casa", "Lammfilet nach Art des Hauses", "35,50 €"]]}, {"id": "maiale", "title": "Carni di Maiale", "subtitle": "Fleischgerichte vom Schwein", "note": "Zu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.", "items": [["200", "Cotoletta alla cacciatore", "Jägerschnitzel", "21,50 €"], ["202", "Cotoletta alla panna", "Rahmschnitzel", "21,50 €"], ["204", "Cotoletta al gorgonzola", "Schnitzel mit Gorgonzolasauce", "21,50 €"]]}, {"id": "bambini", "title": "Per noi bambini", "subtitle": "Für unsere kleinen Gäste", "note": "", "items": [["205", "Cotoletta Pinocchio", "Schnitzel mit Pommes Frites", "10,50 €"], ["206", "Spaghetti L'Alpe Maja", "Spaghetti mit Tomatensauce", "9,50 €"]]}, {"id": "pesce", "title": "Pesce", "subtitle": "Fisch", "note": "Zu allen Fischgerichten reichen wir Pasta und Salat. Falls Sie ein anderes Fischgericht bevorzugen, fragen Sie bitte unser Service-Team.", "items": [["210", "Calamari alla romana", "Frittierter Tintenfisch", "29,50 €"], ["211", "Calamari alla marinara", "Tintenfisch in pikanter Tomatensauce", "29,50 €"], ["212", "Gamberoni provinciale", "Scampi in pikanter Tomatensauce", "31,50 €"], ["213", "Gamberoni Chef", "Scampi nach Art des Hauses", "31,50 €"], ["214", "Gamberoni alla griglia", "Gegrillte Scampi", "31,50 €"], ["215", "Sogliola alla griglia", "Gegrillte Seezunge", "Tagespreis"], ["216", "Sogliola al pepe", "Seezunge in grüner Pfeffersauce", "Tagespreis"], ["217", "Salmone della casa", "Lachs nach Art des Hauses", "Tagespreis"]]}, {"id": "contorni", "title": "Contorni", "subtitle": "Beilagen", "note": "Auf Wunsch können Sie zu allen Gerichten zusätzliche Beilagen bestellen.", "items": [["", "Broccoli", "", "6,50 €"], ["", "Spinat", "", "6,50 €"], ["", "Salat", "", "6,50 €"], ["", "Kroketten", "", "6,50 €"], ["", "Rosmarinkartoffeln", "", "6,50 €"], ["", "Pommes Frites", "", "6,50 €"]]}, {"id": "dessert", "title": "Dessert", "subtitle": "Dolci", "note": "Einige Desserts sind saisonabhängig.", "items": [["220", "Panna Cotta", "Klassisches Sahnedessert", "10,50 €"], ["222", "Zabaione", "Italienische Weinschaumcreme", "10,50 €"], ["223", "Tiramisù", "Tiramisu", "10,50 €"], ["224", "Tortino al choco", "Schokoladensoufflé", "10,50 €"], ["225", "Gelato di vaniglia con lamponi caldi", "Vanilleeis mit heißen Himbeeren", "10,50 €"]]}, {"id": "getraenke-alkoholfrei", "title": "Bevande analcoliche", "subtitle": "Alkoholfreie Getränke", "note": "", "items": [["9", "Acqua Panna 0,75 l", "", "8,50 €"], ["10", "Acqua Panna 0,25 l", "", "3,50 €"], ["11", "San Pellegrino 0,25 l", "", "3,50 €"], ["12", "Coca Cola 0,3 l", "", "3,70 €"], ["13", "Fanta 0,3 l", "", "3,70 €"], ["14", "Apfelsaft 0,2 l", "", "3,50 €"], ["15", "Orangensaft 0,2 l", "", "3,50 €"], ["16", "Coca Cola light 0,3 l", "", "3,70 €"], ["17", "Fassbrause 0,33 l", "", "3,80 €"], ["18", "Traubensaft 0,2 l", "", "3,50 €"], ["19", "Bitter Lemon 0,2 l", "", "3,50 €"], ["20", "Sprite 0,3 l", "", "3,70 €"], ["21", "Ginger Ale 0,2 l", "", "3,50 €"], ["94", "San Pellegrino 0,75 l", "", "8,50 €"]]}, {"id": "warme-getraenke", "title": "Bevande calde", "subtitle": "Warme Getränke", "note": "", "items": [["22", "Kaffee", "", "3,00 €"], ["23", "Espresso", "", "3,00 €"], ["24", "Cappuccino", "", "3,80 €"], ["25", "Kakao", "", "3,80 €"], ["26", "Espresso affogato", "", "5,50 €"], ["27", "Tee", "", "3,50 €"], ["95", "Doppio Espresso", "", "3,80 €"], ["98", "Latte Macchiato", "", "4,80 €"]]}, {"id": "offene-weine", "title": "Vini sfusi", "subtitle": "Offene Weine", "note": "0,25 l", "items": [["28", "Lugana Bulgarini", "Weißwein, trocken (Gardasee)", "11,50 €"], ["29", "Pinot grigio", "Weißwein, trocken (Veneto)", "8,50 €"], ["30", "Verdicchio", "Weißwein, trocken (Marche)", "8,50 €"], ["31", "Frizzantino", "Weißwein, lieblich (Toskana)", "7,50 €"], ["32", "Primitivo", "Rotwein, trocken (Apulien)", "8,50 €"], ["33", "Bardolino", "Rotwein, halbtrocken (Gardasee)", "8,50 €"], ["34", "Lambrusco", "Rotwein, lieblich (Emilia Romagna)", "7,50 €"], ["35", "Rosato", "Rosé, trocken (Lazio)", "7,50 €"], ["36", "Montepulciano", "Rotwein, trocken (Abruzzo)", "8,50 €"], ["37", "Soler De Stefani", "Rotwein, trocken (Veneto)", "15,00 €"]]}, {"id": "bier", "title": "Birre", "subtitle": "Bier", "note": "Birra alla spina und Birra in bottiglia.", "items": [["38", "Krombacher Pils 0,2 l", "Bier vom Fass", "2,70 €"], ["39", "Krombacher Pils 0,3 l", "Bier vom Fass", "3,70 €"], ["40", "Rhenania Alt 0,2 l", "Bier vom Fass", "3,00 €"], ["41", "Rhenania Alt 0,4 l", "Bier vom Fass", "5,00 €"], ["42", "Alkoholfreies Radler 0,4 l", "Flaschenbier", "4,80 €"], ["43", "Weizen 0,5 l", "Flaschenbier", "5,50 €"], ["44", "Alkoholfreies Pils 0,33 l", "Flaschenbier", "3,80 €"], ["45", "Malzbier 0,33 l", "Flaschenbier", "3,80 €"]]}, {"id": "mixgetraenke", "title": "Bevande combinate", "subtitle": "Mixgetränke", "note": "", "items": [["46", "Krefelder 0,4 l", "Altbier mit Cola", "4,80 €"], ["47", "Alster 0,3 l", "Bier mit Fanta", "3,70 €"], ["48", "Flieger 0,3 l", "Bier mit Cola", "3,70 €"], ["49", "Apfelschorle 0,3 l", "", "3,70 €"], ["50", "Radler 0,3 l", "Bier mit Sprite", "3,70 €"], ["51", "Schuss 0,3 l", "Bier mit Malzbier", "3,70 €"], ["52", "Spezi 0,3 l", "Cola mit Fanta", "3,70 €"]]}, {"id": "digestivi", "title": "Digestivi", "subtitle": "Digestifs", "note": "", "items": [["53", "Ramazotti 4cl", "", "4,90 €"], ["54", "Averna 4cl", "", "4,90 €"], ["55", "Apfelkorn 2cl", "", "3,00 €"], ["56", "Malteser 2cl", "", "3,50 €"], ["57", "Sambuca 2cl", "", "3,50 €"], ["60", "Underberg 2cl", "", "3,50 €"], ["61", "Fernet Branca 2cl", "", "3,50 €"], ["62", "Jägermeister 2cl", "", "3,50 €"], ["63", "Marsala 4cl", "", "4,00 €"], ["64", "Amaretto 4cl", "", "4,50 €"]]}, {"id": "grappe-rum", "title": "Grappe casa Berta & Ron Zacapa", "subtitle": "Grappa 2cl und Rum", "note": "Auswahl besonderer Digestifs.", "items": [["67", "Tre solo Tre di Barolo", "Grappa Tre Soli Tre, Berta, Piemont. Rebsorte Nebbiolo da Barolo, etwa acht Jahre Fasslagerung, Aromen von reifem Obst, Kakao und Vanille.", "13,50 €"], ["68", "Bric del Gaian di Moscato", "Sehr milder und aromatischer Grappa mit feinem Moscatoton, Rosenholz und Zitrusfrüchten.", "13,50 €"], ["69", "Roccanivo di Barbera", "Grappa aus Barbera d'Asti, Ausbau in Eichenholzfässern, Noten von Gewürzen, Marascino, Waldbeeren, Schokolade und Vanille.", "13,50 €"], ["70", "Magia di Brachetto, Barbera, Malvasia", "Riserva Magia mit zehnjähriger Reifung im Holzfass, dunkle Früchte, Gewürze, Tabak und Vanille.", "14,50 €"], ["71", "Grappa Berta Elisi", "Aus 50 % Barbera d'Asti, 25 % Nebbiolo da Barolo und 25 % Cabernet.", "7,60 €"], ["72", "Ron Zacapa Sistema 23 Solera Gran Reserva", "2cl", "10,00 €"], ["73", "Ron Zacapa Centenario XO Gran Reserva Especial", "2cl", "17,00 €"]]}], "tageskarte": [["Carpaccio di bietola rossa", "Rote Beete Carpaccio mit Flusskrebsen", "18,50 €"], ["Spaghetti chitarra al tartufo", "Selbstgemachte Spaghetti mit frischem Sommertrüffel", "24,50 €"], ["Pizza con carpaccio caldo", "Warmes Anguscarpaccio auf Pizza mit Rucola, Parmesan und frischem Trüffel", "27,50 €"], ["Tagliata di manzo", "Tranchiertes Black Angussteak auf Rucola und Parmesan, dazu Rosmarinkartoffeln", "37,50 €"], ["Orata alla Griglia", "Gegrilltes Doradenfilet mit Pasta und Salat", "32,50 €"], ["Panna Cotta con fragole", "Panna Cotta mit frischen Erdbeeren", "10,50 €"]], "weinangebote": [["Cantina Bulgarini", "Bulgarini Lugana DOC 2022", "6 × 0,75 l", "Der aktuelle Jahrgang macht mit intensivem Strohgelb und grünen Reflexen auf sich aufmerksam.", "90,00 €"], ["Cantina Mocavero", "Primitivo Santufilli 2018", "6 × 0,75 l", "Violett strahlende, intensive rote Farbe, Gewürz- und Konfitüreanklänge, ausgewogenes Tannin.", "119,00 €"]], "degustationen": [{"title": "Degustazione 07. & 08. November 2025", "time": "Einlass 18:30 Uhr · Beginn 19:00 Uhr", "price": "159,00 € pro Person inkl. Weine der Kellerei Cantina KURTATSCH", "items": [["Salmone alla bietola rossa", "Geröstetes Brot mit Rote-Beete-Lachs"], ["Carpaccio di wagyu ai Porcini", "Carpaccio vom Wagyurind"], ["Risotto", "Risotto mit Salicornia, Scampi e Bottarga"], ["Pasta con Tartufo", "Nudeln mit Trüffeln"], ["Filetto di Manzo", "Black Angus Filet in Rotweinsauce"], ["Panna Cotta", "Dessert"]], "note": "Lassen Sie sich von unserem Rahmenprogramm überraschen. Änderungen vorbehalten."}, {"title": "Degustazione 16.11.2025", "time": "Einlass: 12:30 Uhr bis 18:00 Uhr", "price": "178,00 € pro Person", "items": [["Riva di Refrontolo Prosecco", "Bruschettone Salmone e Burrata"], ["Vitaly", "Carpaccio di Manzo mit Pilzen"], ["Manzoni", "Risotto Bottarga e Scampi"], ["Pinot Grigio", "Spaghetti alla chitarra con Tartufo"], ["Soler", "Black Angusfilet al vino rosso"], ["Kreda / Amarone", "Tortino al chocolat"], ["Passito", "Dessertwein"]], "note": "Menüfolge laut Sonderaktionskarte."}], "originals": [{"title": "Hauptkarte – Originaltext aus dem PDF", "file": "https://www.lisoletta-olpe.de/gfx/Karte_Lisoletta.pdf", "pages": [{"page": 1, "text": "Apéritifs\n1 Crodino\nEuro 6,50\n5 Martini\nEuro 7,50\n2 Campari Orange\nEuro 8,50\n6 Sherry\nEuro 7,50\n3 Hugo\nEuro 8,50\n7 Prosecco\nEuro 8,50\n4 Kir Royal\nEuro 9,50\n8 Aperol Spritz\nEuro 8,50\nInsalata\n(Salate)\n100 Insalata Verde\nEuro  9,50\nGrüner Salat mit Zwiebeln\n101 Insalata Primavera\nEuro 12,50\nKleiner gemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten und Gurken\n102 Insalata Italia\nEuro 15,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse und Ei\n103 Insalata Capri\nEuro 17,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei und Thunfisch\n104 Insalata con Manzo\nEuro 25,50\nGemischter Salat mit Mais, Paprika, Zwiebeln Tomaten, Gurken\nund Rindfleischstreifen\n105 Insalata Firenze\nEuro 17,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei, Mozzarella und Parmaschinken\n106 Insalata con Salmone\nEuro 19,50\nGemischter Salat mit Mais, Paprika, Zwiebeln Tomaten, Gurken\nund Lachs\n107 Insalata Chef\nEuro 18,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei und gebackenen Krabben\n108 Insalata Maxi\nEuro 17,50\nGemischter Salat mit Mais, Paprika, Zwiebeln, Tomaten, Gurken,\nSchinken, Käse, Ei und Putenbrust\n109 Bruschetta\nEuro 9,50\nGeröstetes Brot mit frischen Tomaten (6 Stück)"}, {"page": 2, "text": "Antipasti\n(Kalte Vorspeisen)\n110 Mozzarella caprese\nEuro 15,50\nMozzarella mit Tomaten und Basilikum\n111 Insalata di mare\nEuro 18,50\nFischsalat\n112 Filetto al carpaccio\nEuro 18,50\nRohes Rindfleisch, hauchdünn geschnitten\n115 Antipasto Firenze\nEuro 20,50\nVon allem ein wenig\n116 Vitello tonnato\nEuro 18,50\nKalbfleisch unter Thunfischsauce\n117 Bresaola con Parmigiano\nEuro 18,50\nLuftgetrockneter Rinderschinken mit Parmesankäse\nAntipasti Caldi\n(Warme Vorspeisen)\n118 Lumache burro e aglio o con panna\nEuro 14,50\nSechs Schnecken in Kräuter- oder Rahmsauce\n119 Melanzana alla parmigiana\nEuro 15,50\nÜberbackene Aubergine mit Schinken\n120 Antipasto del sultano\nEuro 17,50\nÜberbackenes Gemüse\nZuppe\n(Suppen)\n121 Crema di promodoro\nEuro 8,50\nTomatensuppe\n122 Stracciatella alla romana\nEuro 8,50\nKraftbrühe mit geschlagenem Ei\n124 Tortellini in brodo\nEuro 8,50\nKraftbrühe mit Tortellini"}, {"page": 3, "text": "Pasta\n(Nudelgerichte)\n129 Spaghetti al  bolognese\nEuro  14,50\nSpaghetti mit Bolognesesauce ( Nur Rind  )\n130 Spaghetti aglio oglio e peperoncino\nEuro  14,50\nSpaghetti mit Knoblauchsauce, scharf gewürzt\n131 Spaghetti alla vongole\nEuro 17,50\nSpaghetti mit Venusmuscheln\n132 Spaghetti alla Marinara\nEuro 18,50\nSpaghetti mit Meeresfrüchten\n133 Tortellini alla panna\nEuro 15,50\nTortellini mit Schinken und Sahne\n134 Tortellini emiliani\nEuro 17,50\nTortellini mit Parmaschinken und Erbsen\n136 Tortellini al Tartufo\nEuro 20,50\nTortellini in feiner Trüffelsauce\n137 Tortellini Chef\nEuro 16,50\nTortellini mit Putenfleisch\n139 Rigatoni ai quattro formaggi\nEuro 16,50\nRigatoni mit vier verschiedenen Käsesorten\n140 Rigatoni al gorgonzola\nEuro 16,50\nRigatoni in feiner Gorgonzolasauce\n141 Rigatoni vegetali\nEuro 15,50\nRigatoni mit Gemüse\n143 Tagliatelle ai gamberini\nEuro 17,50\nBandnudeln in feiner Spinat-Krabben-Sauce\n144 Tagliatelle Paradiso\nEuro 17,50\nBandnudeln mit Putenstreifen in Sauce nach Art des Hauses\n145 Tagliatelle taglialegna\nEuro 21,50\nBandnudeln mit Rindfleischstreifen und Pilzen\n147 Tagliatelle al salmone\nEuro 19,50\nBandnudeln mit frischem Lachs\n148 Pasta mista per due\nEuro 42,00\nGemischte Nudelplatte für zwei Personen"}, {"page": 4, "text": "Pasta al forno\n(Überbackene Nudeln)\n149 Rigatoni gratinati\nEuro 15,50\nRigatoni in Tomaten-Sahne-Sauce mit Schinken\n150 Lasagna\nEuro 15,50\nSchichtnudeln mit Bechamel- und Fleischsauce\n151 Orecchiette\nEuro 15,50\nMuschelnudeln, scharf gewürzt\n153 Combinazione di pasta\nEuro 15,50\nVerschiedene Nudeln überbacken\n154 Tortellini al forno\nEuro 15,50\nTortellini mit Tomaten-Sahne-Sauce\n155 Lasagna pasticciata\nEuro 15,50\nSchichtnudeln mit Schinken und Pilzen\n156 Rigatoni mamma Margherita\nEuro 15,50\nRigatoni mit Schinken, Pilzen und Erbsen\nPizze\n157 Pizza Margherita\nEuro  11,50\nTomaten und Käse\n158 Pizza Salami\nEuro 12,50\nTomaten, Käse und  Salami\n159 Pizza Rucola\nEuro 15,50\nTomaten, Käse, Rucola, frische Tomaten und Parmesan\n160 Pizza Parma\nEuro 18,00\nTomaten, Käse, Rucola, frische Tomaten, Parmesan und Parmaschinken\n161 Pizza Firenze\nEuro 15,50\nTomaten, Käse, Schinken, Oliven, Pilze und Artischocken\n162 Pizza Sciaquarone\nEuro 15,50\nTomaten, Käse, Salami, Schinken, Sardellen, Zwiebeln und Peperoni\n163 Pizza Toscana\nEuro 15,50\nTomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Peperoniwurst\n164 Pizza Capri\nEuro 15,50\nTomaten, Käse, Schinken, Salami, Pilze, Zwiebeln und Paprika\n165 Pizza Calzone\nEuro 15,00\nTomaten, Käse, Schinken, Salami, Pilze\n(mit Käse- oder Bolognesesauce 2,50 € extra)\n166 Pizza quattro-Stagioni\nEuro 15,50\nTomaten, Käse, Schinken, Salami, Pilze und Paprika\n167 Pizza Rustica\nEuro 15,50\nTomaten, Käse, Thunfisch und Zwiebeln\n168 Pizza con Scampi\nEuro 17,00\nTomaten, Käse und Krabben\n169 Pizza Popeye\nEuro 15,00\nTomaten, Käse, Mozzarella, Spinat und Knoblauch\n170 Pizza Regina\nEuro 14,50\nTomaten, Käse, Pilze und Schinken\n171 Pizza Vegetaria\nEuro 15,50\nTomaten, Käse und Gemüse\n172 Pizza del Capo\nEuro 17,00\nTomaten, Käse, Mozzarella und Parmaschinken"}, {"page": 5, "text": "Carni di Manzo\n(Fleischgerichte vom Angusrind, circa 250 g)\nZu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.\n173 Bistecca ai ferri\nEuro 36,50\nRumpsteak vom Grill mit Kräuterbutter\n175 Bistecca con cipolla\nEuro 36,50\nRumpsteak mit Zwiebeln\n176 Bistecca Madagaskar\nEuro 36,50\nRumpsteak mit grüner Pfeffersauce\n177 Bistecca Firenze\nEuro 34,50\nRumpsteak nach Art des Hauses\n180 Filetto ai ferri\nEuro 40,50\nRinderfilet vom Grill mit Kräuterbutter\n181 Filetto Firenze\nEuro 40,50\nRinderfilet nach Art des Hauses\n182 Filetto Gorgonzola\nEuro 40,50\nRinderfilet in feiner Gorgonzolasauce\n184 Filetto Madagaskar\nEuro 40,50\nRinderfilet in grüner Pfeffersauce\n186 Filetto al tartufo\nEuro 43,50\nRinderfilet in feiner Trüffelsauce\nCarni di Vitello\n(Kalbsfleisch)\nZu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.\n187 Scaloppine al Marsala\nEuro 30,50\nKalbsmedaillons in Marsalasauce\n188 Scaloppine Firenze\nEuro 30,50\nKalbsmedaillons nach Art des Hauses\n189 Scaloppine al gorgonzola\nEuro 30,50\nKalbsmedaillons in feiner Gorgonzolasauce\n191 Saltinbocca alla romana\nEuro  30,50\nKalbsmedaillons mit Schinken und Salbei"}, {"page": 6, "text": "Piatti per due\n(Fleischgerichte für zwei Personen)\n194 Chateaubriand\nEuro 88,00\nRosa gebratenes Rinderfilet mit diversen Beilagen\n195 Mix Grill\nEuro 80,00\nVerschiedene Fleischsorten mit diversen Beilagen\n196 Sella d`Agnello\nEuro 80,00\nLammrücken mit diversen Beilagen\nAgnello\n(Irisches Salzwiesenlamm)\n197 Cotoletta d`Agnello alla griglia\nEuro 35,50\nLammkotelett aus dem Lammkarree, vom Grill\n198 Filetto d`Agnello della casa\nEuro 35,50\nLammfilet nach Art des Hauses\nCarni di Maiale\n(Fleischgerichte vom Schweine)\n200 Cotoletta alla cacciatore\nEuro  21,50\nJägerschnitzel\n202 Cotoletta alla panna\nEuro  21,50\nRahmschnitzel\n204 Cotoletta al gorgonzola\nEuro  21,50\nSchnitzel mit Gorgonzolasauce\nZu allen Fleischgerichten reichen wir Rosmarinkartoffeln und Salat.\nPer noi bambini\n(Für unsere kleinen Gäste)\n205 Cotoletta Pinocchio\nEuro 10,50\nSchnitzel mit Pommes Frites\n206 Spaghetti L´Alpe Maja\nEuro 9,50"}, {"page": 7, "text": "Spaghetti mit Tomatensauce\nPesce\n(Fisch)\nZu allen Fischgerichten reichen wir Pasta und Salat.\n210 Calamari alla romana\nEuro 29,50\nFrittierter Tintenfisch\n211 Calamari alla marinara\nEuro 29,50\nTintenfisch in pikanter Tomatensauce\n212 Gamberoni provinciale\nEuro 31,50\nScampi in pikanter Tomatensauce\n213 Gamberoni chef\nEuro 31,50\nScampi nach Art des Hauses\n214 Gamberoni alla griglia\nEuro 31,50\nGegrillte Scampi\n215 Sogliola alla griglia\nTagespreis\nGegrillte Seezunge\n216 Sogliola al pepe\nTagespreis\nSeezunge in grüner Pfeffersauce\n217 Salmone della casa\nTagespreis\nLachs nach Art des Hauses\nFalls Sie ein anderes Fischgericht bevorzugen, fragen Sie bitte unsere Kellner.\nContorni\n(Beilagen)\nBroccoli\nEuro 6,50\nKroketten\nEuro 6,50\nSpinat\nEuro 6,50\nRosmarinkartoffeln  Euro 6,50\nSalat\nEuro 6,50\nPommes Frites\nEuro 6,50\nAuf Wunsch können Sie zu allen Gerichten zusätzliche Beilagen bestellen.\nDessert\n220 Panna cotta\nEuro 10,50\n223 Tiramisù\nEuro 10,50\nKlassisches Sahnedessert                                                           Tiramisu\n224 Tortino al choco  Euro 10,50                          222 Zabaione\nEuro 10,50\nSchokoladensoufflé                                                                   Italienische Weinschaumcreme"}, {"page": 8, "text": "Einige unserer Desserts sind saisonabhängig.\nBevande analcoliche\n(Alkoholfreie Getränke)\n11 San Pellegrino 0,25 l\nEuro 3,50\n18 Traubensaft 0,2 l\nEuro 3,50\n12 Coca Cola 0,3 l\nEuro 3,70\n19 Bitter Lemon 0,2 l\nEuro 3,50\n13 Fanta 0,3 l\nEuro 3,70\n20 Sprite 0,3 l\nEuro 3,70\n14 Apfelsaft 0,2 l\nEuro 3,50\n21 Ginger Ale 0,2 l\nEuro 3,50\n15 Orangensaft 0,2 l\nEuro 3,50\n10 Acqua Panna 0,25 l\nEuro 3,50\n16 Coca Cola light 0,3 l\nEuro 3,70\n9 Acqua Panna 0,75 l\nEuro 8,50\n17 Fassbrause 0,33 l\nEuro 3,80\n94 San Pellegrino 0,75 l\nEuro 8,50\nBevande calde\n(Warme Getränke)\n22 Kaffee\nEuro 3,00\n25 Kakao\nEuro 3,80\n23 Espresso\nEuro 3,00\n26 Espresso affogato\nEuro 5,50\n24 Cappuccino\nEuro 3,80\n27 Tee\nEuro 3,50\n95 Doppio Espresso\nEuro 3,80\n98 Latte Macchiato\nEuro 4,80\nVini sfusi\n(Offene Weine)\n28 Lugana Bulgarini 0,25 l\nEuro 11,50\n33 Bardolino 0,25 l\nEuro 8,50\nWeißwein, trocken (Gardasee)\nRotwein, halbtrocken (Gardasee)\n29 Pinot grigio\n0,25 l\nEuro 8,50\n34 Lambrusco 0,25 l\nEuro 7,50\nWeißwein, trocken (Veneto)\nRotwein, lieblich (Emilia Romagna)\n30 Verdicchio 0,25 l\nEuro 8,50\n35 Rosato 0,25 l\nEuro 7,50\nWeißwein, trocken (Marche)\nRose, trocken (Lazio)\n31 Frizzantino 0,25 l\nEuro 7,50\n36 M. pulciano 0,25 l\nEuro 8,50\nWeißwein, lieblich (Toskana)                                                     Rotwein, trocken (Abruzzo)\n32 Primitivo 0,25 l\nEuro 8,50\n37 Soler De Stefani 0,25 l\nEuro 15,00"}, {"page": 9, "text": "Rotwein, trocken (Apulien)                                                       Rotwein, trocken (Veneto)\nBirre\n(Bier)\nBirra alla spina\nBirra in bottiglia\nBier vom Fass\nFlaschenbier\n38 Krombacher Pils  0,2 l\nEuro 2,70\n42 Alkoholfreies Radler 0,4 l\nEuro 4,80\n39 Krombacher Pils 0,3 l\nEuro 3,70\n43 Weizen 0.5 l\nEuro 5,50\n40 Rhenania Alt 0,2 l\nEuro 3,00\n44 Alkoholfreies Pils 0,33 l\nEuro 3,80\n41 Rhenania Alt 0,4 l\nEuro 5,00\n45 Malzbier 0,33 l\nEuro 3,80\nBevande combinate\n(Mixgetränke)\n46 Krefelder 0,4 l\nEuro 4,80\n50 Radler 0,3 l\nEuro 3,70\nAltbier mit Cola                                                                        Bier mit Sprite\n47 Alster 0,3 l\nEuro 3,70\n51 Schuss 0,3 l\nEuro 3,70\nBier mit Fanta                                                                            Bier mit Malzbier\n48 Flieger 0,3 l\nEuro 3,70\n52 Spezi 0,3 l                          Euro 3,70\nBier mit Cola\nCola mit Fanta\n49 Apfelschorle 0,3 l\nEuro 3,70\nDigestivi\n53 Ramazotti  4cl\nEuro 4,90\n60 Underberg  2cl\nEuro 3,50\n54 Averna 4cl\nEuro 4,90\n61 Fernet Branca 2cl\nEuro 3,50\n55 Apfelkorn  2cl\nEuro 3,00\n62 Jägermeister 2cl\nEuro 3,50\n56 Malteser 2cl\nEuro 3,50\n63 Marsala\n4cl\nEuro 4,00\n57 Sambuca  2cl\nEuro 3,50\n64 Amaretto  4cl\nEuro 4,50"}, {"page": 10, "text": "Grappe casa Berta\n(Grappa 2cl)\n67 Tre solo Tre di barolo\nEuro 13,50\nGrappa Tre Soli Tre, Berta, Piemont. Rebsorte: Nebbiolo da Barolo. Etwa 8 Jahre Fass-\nlagerung. Duft: Reich, einhüllend mit großer Persönlichkeit. Wunderbares Konzert von\nAromen, die vor allem an reifes Obst (schwarze Johannisbeere, Aprikose, Sauerkirsche),\nKakao und Vanille erinnern.\n68 Bric del Gaian di moscato\nEuro 13,50\nEin sehr milder und aromatischer Grappa mit einem feinen Moscatoton. Mit seinem Duft nach\nRosenholz und Zitrusfrüchten ist der Bric del Gaian Grappa di Moscato d Asti ein insgesamt\nweicher und geschmeidiger Grappa, der viele Jahre im Fass gereift ist.\n69 Roccanivo di barbera\nEuro 13,50\nDieser Grappa wird aus Trauben der Sorte Barbera d'Asti gebrannt, die aus der Gegend von\nMombaruzzo stammen. Die Tenuta Roccanivo ist im Besitz der Familie Berta. Die\nDestillation erfolgt diskontinuierlich. Das Destillat wird in 225 Liter großen Eichenholz-\nfässern mit mittlerer Toastung ausgebaut und hat dadurch einen bernsteinfarbenen Ton.\nGewürzaromen, Marascino, Waldbeeren, Schokolade und Vanille.\nReich, delikat, von großer Harmonie und Dichte.\n70 Magia di Brachetto, Barbera, Malvasia\nEuro 14,50\nDie Riserva Magia bietet nach zehnjähriger Reifung im Holzfass einen wunderbar runden\nDuft mit Aromen von dunklen Früchten und Gewürzen, fein untermalt von Tabak- und\nVanillenoten. Im Geschmack eine schwere Süße mit elegantem Tannin und fruchtig-bitterem\nAbgang. Ein wertvoller Digestif auf hohem Niveau.\n71 Grappa Berta elisi\nEuro 7,60\nAus 50% Barbera d'Asti, 25% Nebbiolo da Barolo und 25% Cabernet. Eleganz und\nKomplexität von Aromen ist das Ergebnis einer sorgfältigen Auswahl sehr guter Grappe, die\nin den letzten zehn Jahren hergestellt wurden und in Fässern aus Eichenholz gereift sind.\nRon Zacapa  2cl\n72 Ron Zacapa Sistema 23 solera Gran Riserva\nEuro   10,00\n73 Ron Zacapa Centenario XO Gran Reserva Especial\nEuro   17,00\n."}]}, {"title": "Tageskarte – Originaltext aus dem PDF", "file": "https://www.lisoletta-olpe.de/gfx/tageskarte.pdf", "pages": [{"page": 1, "text": "Tageskarte\nCarpaccio di bietola rossa\n18,50 €\nRote Beete Carpaccio mit Flusskrebsen\nSpaghetti chitarra al tartufo\n24,50 €\nSelbstgemachte Spaghetti mit frischem Sommertrüffel\nPizza con carpaccio caldo\n27,50 €\nWarmes Anguscarpaccio auf Pizza mit Rucola, Parmesan\nund frischem Trüffel\nTagliata di manzo\n37,50 €\nTranchiertes Black Angussteak auf Rucola und Parmesan\ndazu Rosmarinkartoffeln\nOrata alla Griglia\n32,50 €\nGegrilltes Doradenfilet mit Pasta und Salat\nPanna Cotta con fragole\n10,50 €\nPanna Cotta mit frischen Erdbeeren"}]}, {"title": "Sonderaktion / Degustazione – Originaltext aus dem PDF", "file": "https://www.lisoletta-olpe.de/gfx/sonderaktion.pdf", "pages": [{"page": 1, "text": "Degustazione 07. & 08. November 2025\nSalmone alla bietola rossa\nGeröstetes Brot mit Rote Beete  Lachs\nCarpaccio di wagyu ai Porcini\nCarpaccio vom Wagyurind\nRisotto\nRisotto mit Salicornia Scampi e Bottarga\nPasta con Tartufo\nNudeln mit Trüffeln\nFiletto di Manzo\nBlack Angus Filet in Rotweinsauce\nPanna Cotta\nEinlass 18.30 Uhr\nBeginn 19,00 Uhr\nPreis 159,00,- pro Person incl. Weine der Kellerei Cantina KURTATSCH\nLassen Sie sich von unserem Rahmenprogramm überraschen!\nÄnderungen vorbehalten"}, {"page": 2, "text": "Degustazione 16.11.2025\nRiva di refrontolo Prosecco\nBruschettone Salmone e burrata\nGerosttBrot mit Lachs und Burrata\nVitaly\nCarpaccio di Manzo\nRindecarpaccio mit Pilzen\nManzoni\nRisotto bottarga  e scampi\nRisotto mit Salicornia Scampi e Bottarga\nPinot Grigio\nSpaghetti alla chitarra  con Tartufo\nNudeln  mit   Trüffel\nSoler\nBlack Angusfilet al vino rosso\nBackangusfilet   in Rotweinsauce\nKreda/Amarone\nTortino al chocolat\nPassito\nEinlass: 12:30 Uhr bis 18.00\nPreis: 178,00 Euro p.P"}]}, {"title": "Weinangebot – Originaltext aus dem PDF", "file": "https://www.lisoletta-olpe.de/gfx/mittagskarte.pdf", "pages": [{"page": 1, "text": "Cantina Bulgarini\nBulgarini Lugana DOC 2022\n6x 0,75l\nDer aktuelle Jahrgang des Bulgarini Lugana DOC 2022 macht mit seinem sehr\nintensiven Strohgelb, mit grünen Reflexen auf sich aufmerksam.\n90,00 EUR\nInhalt 4,5 Liter\n15,33 EUR / Liter\ninkl. 19% USt. , zzgl. Versand"}, {"page": 2, "text": "Cantina Mocavero\nPrimitivo Santufilli  2018\n6 x 0,75 L\nSantufili hat eine violett strahlende, intensive, rote Farbe.Anspielungen auf Gewürze und\nKonfitüre im intensiven Duft, ausgewogenes Tannin.\n119,00 €\nInhalt 4,5 Liter\n25,33 € / Liter\ninkl. 19% USt. , zzgl. Versand\n•"}]}, {"title": "Weinkarte – Originaltext aus dem PDF", "file": "https://www.lisoletta-olpe.de/gfx/weinkarte.pdf", "pages": [{"page": 1, "text": "Ristorante\nL`Isoletta\nI Vini"}, {"page": 2, "text": "Weißwein\n. . . . Roero Arneis DOCG „Anterisio“\n– Cascina\nAnbaugebiet: Piemont\nRebsorte:\nArneis\nBeschreibung: Strohgelb mit grünem Schimmer. Intensives und persistentes Bukett\nmit Noten von Aprikose, Apfel und dezenten Anklängen von Kamille\nund Gewürzen. Am Gaumen würzig, gut strukturiert und harmonisch.\nLanger Abgang.\n. . . . Lugana DOC – Bulgarini\nAnbaugebiet: Lombardei\nRebsorte:\nTurbiana\nBeschreibung: Strohgelb mit grünlichen Reflexen. Typisches und fruchtiges Bukett\nmit einer delikaten Note von Pfirsich und Aprikose. Am Gaumen\nentscheidend frisch und würzig, ausgestattet mit einer guten Struktur\nund einer langen aromatischen Beständigkeit, im Finale eine leichte\nMandelnote.\n. . . . Vernaccia DOCG „I Macchioni“\n– Casa alle Vacche\nAnbaugebiet: Toskana\nRebsorte:\nVernaccia\nBeschreibung: Helles Strohgelb mit grünlichen Reflexen. Üppiges Bukett mit Noten\nvon reifer Frucht und Mandeln. Am Gaumen trocken, harmonisch mit\nangenehmer Frische und gut eingebundener Mandelnote.\n. . . . Vermentino DOC „Benas“ – Cantina della Vernaccia\nAnbaugebiet: Sardinien\nRebsorte:\nVermentino\nBeschreibung: Leuchtendes Strohgelb. Intensives Bukett mit edlen Noten von\nZitrusfrüchten und weißen Blumen. Trockener Geschmack. Am\nGaumen weich mit mittlerem Körper."}, {"page": 3, "text": "Rotwein\n0,75l\n. . . . Chianti Classico DOCG\n– Fattoria di Rodano\nAnbaugebiet: Toskana\nRebsorte:\nSangiovese 90%, Canaiolo nero 5%, Colorino 5%\nBeschreibung: Intensives Rubinrot. Ausgeprägtes Bukett mit erdigen Tönen und\nNoten von roten Kirschen und Tabak. Mittlerer Körper,\nFruchtaromen und exzellente Struktur. Persistent im Finale.\n. . . . Bolgheri DOC Superiore „Sor Ugo“\n– Aia Vecchia\nAnbaugebiet: Toskana\nRebsorte:\nCabernet Sauvignon, Merlot, Cabernet Franc, Petit Verdot (Barrique)\nBeschreibung: Intensives Dunkelrot. Üppiges Bukett mit Noten von Waldbeeren\nund Gewürzen. Lang, tief, komplex und vollmundig mit\nmineralischen Noten. Sehr gute Struktur und Konzentration.\n. . . . Toscana IGT Rosso „Lagone“ – Aia Vecchia\nAnbaugebiet: Toskana\nRebsorte:\nMerlot, Cabernet Sauvignon, Cabernet Franc (Barrique)\nBeschreibung: Intensives Dunkelrot. Frisches Bukett mit dezenten Noten von\nWaldbeeren, Holz und Vanille. Der Geschmack ist strukturiert und\nelegant von einzigartiger Weichheit und Persistenz im Zusammenspiel\nmit Gewürz- und Kirscharomen.\n. . . . Montepulciano DOC \"Dama\" – Marramiero\nAnbaugebiet: Abruzzen\nRebsorte:\nMontepulciano\nBeschreibung: Sattes Rubinrot mit granatroten Nuancen. In der Nase langlebig\nmit Lakritznoten. Am Gaumen reichhaltig, harmonisch und vollmundig."}, {"page": 4, "text": "Rotwein\n0,75l\n. . . . Cannonau  Anzenas  – Cantine dolia nova\nAnbaugebiet: Sardinien\nRebsorte:\nCannunau\nBeschreibung: Intensives Rubinrot. Einladendes Bukett mit Noten von frischer, roter\nFrucht und Gewürzen. Im Mund reichhaltig, vollmundig mit feinen\nTanninen, die Länge und Persistenz verleihen. Frisch, angenehm, wohl\nschmeckend, gut strukturiert mit exzellentem Finale mit Anklängen an\nfrischem Obst.\n. . . . Primitivo Salento IGP „Santufili“ – Bulgarini\n€ 39,00\nAnbaugebiet: Apulien\nRebsorte:\nPrimitivo (Barrique)\nBeschreibung: Violett strahlendes, eindringliches Rot;\nAnspielungen auf Gewürze und Konfitüre im\nintensiven Duft;\nausgewogenes Tannin. Sehr persistenter\nNachhall.\n….Tignanello Antinori  0,75\nDer Antinori Tignanello 2020 ist ein herausragender Wein aus der Toskana, der sich durch seine\nEleganz und Komplexität auszeichnet. Mit einer sorgfältigen Komposition aus Sangiovese,\nCabernet Sauvignon und Cabernet Franc vereint dieser Rotwein das Beste der toskanischen\nWeintradition mit moderner Weinbereitung. Die Trauben stammen aus den besten Lagen des\nTignanello-Weinbergs, was dem Wein seine unverwechselbare Charakteristik verleiht.\nIm Glas präsentiert sich der Tignanello in einem tiefen Rubinrot. Die Nase wird von einem\nintensiven Bouquet aus reifen Kirschen, dunklen Beeren und Pflaumen begrüßt, ergänzt durch\nNoten von Vanille, Tabak und einer feinen Würze. Am Gaumen überzeugt er mit einer perfekten\nBalance aus Fruchtigkeit, Säure und Tanninen. Die Aromen entfalten sich vielschichtig und\nführen zu einem langanhaltenden, samtigen Abgang.\nDer Tignanello 2020 passt hervorragend zu kräftigen Fleischgerichten, Pasta mit reichhaltigen\nSaucen und gereiftem Käse. Seine Vielseitigkeit macht ihn zu einem idealen Begleiter sowohl für\nfestliche Anlässe als auch für entspannte Abende zu Hause. Dank seines Alterungspotenzials wird\ndieser Wein mit den Jahren noch komplexer und nuancierter, was ihn zu einer ausgezeichneten\nWahl für Weinliebhaber und Sammler macht."}, {"page": 5, "text": ",,,,Val di Suga Brunello di Montalcino DOCG 2019\nRebsorte: 100% Sangiovese Grosso\nFarbe: Intensives Rubinrot mit granatroten Reflexen\nBeschreibung: Der Val di Suga Brunello di Montalcino DOCG präsentiert ein lebendiges\nBouquet beginnend mit eleganten, präzisen, sehr feinen Noten von dunklen Kirschen, Pflaumen\nund Veilchen. Es öffnet sich dann ein breites und komplexes Duftspektrum von Heidelbeere,\nVanille, Tabak, Zimt, Schokolade und Leder, mit einem herrlichen frisch-minzigem Finish. Am\nGaumen ist der Wein elegant, kraftvoll und knackig. Die Anklänge von Kirsche und\ndunklen Beeren hallen noch lange nach. Der Val di Suga Brunello di Montalcino DOCG passt\nideal zu Braten, Gegrillten, Wild und mittelreifem Käse.\n,,,,Feudi di San Gregorio Taurasi DOCG\nANBAUGEBIET: Kampanien\nJAHR: 2018\nERZEUGER: Feudi San Gregorio\nREBSORTEN: Aglianico\nFARBE: rot\nALKOHOLGEHALT: 13%\nStrahlendes Rubinrot mit granatroten Reflexen, duftende Aromen von Sauerkirschen\nund Schattenmorellen, Zimt und Muskatnuss, Vanille und Anis. Der\nGeschmack ist voll und ausgewogen mit süßen und weichen Tanninen,\ndie ihm eine gute aromatische Nachhaltigkeit verleihen."}, {"page": 6, "text": "DE STEFANI SOLÈR\nTRAUBENSORTEN: 20% Merlot, 20% Cabernet Sauvignon, 20% Carmenere, 20%\nRefosco, 20% Marzemino.\n\"Solèr\" ist ein venezianisches Dialektwort, das Dachboden,\nKornkammer bedeutet. Einmal wurden dort die besten Trauben von den Weinbauern\ngetrocknet, denn der \"Solèr\" war gut belüftet, kaum feucht und sehr sonnig. Der\nAusdruck\n„solèr“ kommt nämlich vom Wort \"Sonne\", die zum Trocknen der Trauben notwendig ist.\nANBAUGEBIET: die Marzemino-Trauben wachsen auf dem Besitz Colvendrame in\nRefrontolo, der in den Hügeln zwischen Conegliano und Valdobbiadene liegt. Die\nRefosco-,\nCarmenere-, Merlot- und Cabernet Sauvignon-Trauben werden auf dem Besitz Le\nRonche in\nFossalta di Piave.\nDE STEFANI MALANOTTE\nEinzelweinberg\nTrauben: 100%  Raboso eine autochthone Rebsorte dunkelblauer Trauben, seit\nDer Malanotte del Piave wird mit Raboso Trauben erzeugt, der die\nbekannteste autochthone Weinrebe des Piavegebiets ist. Zu den\nCharakteristiken, die den groβen langlebigen Weinen eigen sind, wie Farbe\nTannine und Säuregehalt, gesellen sich kräftige Aromen nach Brombeeren\nund Kirschen. Die Nähe des Weinbergs zum Meer und zu den Dolomiten,\nseine dichte Bepflanzung und der tonreiche Boden verleihen dem Wein\nrobusten Körper und natürliche Harmonie."}, {"page": 7, "text": "De Stefani KREDA\nCru\nTrauben: Refosco\nTRAUBE: 100% Refosco dal peduncolo rosso.\nZUR GESCHICHTE: \"Kreda\" ist ein venezianisches Dialektwort, das Lehm\nbedeutet. Die Trauben des Refosco dal peduncolo rosso wachsen auf lehmhaltigen\nnach Veilchen, mit hervorstechenden, flüchtigen und würzigen Noten;\nvollmundiger, beeindruckender, umhüllender, sehr samtiger Geschmack und mit\nkomplexen Tertiär-Aromen.EMPFEHLUNG: ideal zu Risotto, zu jeglicher Art von Braten,\nvor allem Lammbraten\n.\nDe Stefani AMARONE\nTrauben: Corvina, Corvinone, Rondinella, Croatina.\nDer Prozess des \"Trocknens\" verleiht diesem Wein Körper, Weichheit und\neine großartige Persönlichkeit. Er wird in einem herrlichen Weinberg in\nValpolicella bei Verona am Fuße der Dolomiten hergestellt.\nAmarone Bailo hat starke Noten von reifen Kirschen, Pflaumen und\nBrombeeren; wichtige Struktur, dicke und samtige Tannine und reichliches\nBouquet."}, {"page": 8, "text": "DE STEFANI OLMÈRA\nCru\nTrauben: Tocai und Sauvignon blanc\nSein Name erinnert an den in der Nähe liegenden alten Ulmenwald, von denen\nheute noch welche zu finden sind. Diese Ulmen haben den Boden mit ganz\nbesonderen Stoffen angereichert, die dem Wein außerordentliche Struktur und\nPersonalität verleihen.\nPRODUKTBEZEICHNUNG: Bianco Veneto I.G.T.\nTRAUBENSORTEN: 60% Tocai – 40% Sauvignon Blanc. Der Tocai gibt dem Wein\nseinen Körper und seine Struktur, während der Sauvignon blanc Aroma und Eleganz\nverleiht.kel und waagerecht lagern. Die Struktur des Weins ermöglicht\ndie Verfeinerung während der Flaschenreifung, die auch bis zu 15 Jahren andauern\nkann. Optimale Qualität wird 7-8 Jahren nach der Weinlese erzielt.\nALKOHOLGEHALT: 13,5-15% vol. (abhängig vom Jahrgang).\nDE STEFANI  PINOT GRIGIO\n34,00 €\nTrauben: Pinot Grigio\nSeit mehr als 50 Jahren wächst unser Pinot Grigio in tonhaltigen,\nklimatisch günstigen Lagen, nahe dem Meer und der Berge. Dieser\nWeiβwein zeichnet sich durch eine groβe Aromenvielfalt aus, die\nvom Duft nach exotischen Früchten bis zu zarten Gewürznoten\nreicht und ein angenehmes Mundgefühl durch Fülle und langem\nNachhall am Gaumen hervorruft."}, {"page": 9, "text": "DE STEFANI VÈNIS\nTrauben: Sauvignon Blanc\nDer Vènis soll eine gebührende Anerkennung auf den venezianischen\nHandelsgeist aussprechen. Die üppigen Bankette der Venezianer des\nSettecento hoben den exotischen Geschmack der Gewürze und anderer\nKöstlichkeiten hervor, die aus den faszinierendsten Ländern importiert\nwurden und die vorzüglich zum Sauvignon blanc passten.\nKöstlichkeiten hervor, die aus den faszinierendsten Ländern importiert wurden\nund die vorzüglich zum Sauvignon blanc passten..\nDE STEFANI Blanc de Noir\nTrauben:\nRaboso\nlanc\nde\nNoir\nwird\naus\neinheimischen\nRaboso-Trauben\nin\neinem\nWeinberg\nzwischen\nAdria\nund\nder\nAlpen\ngewonnen.\nEs\nduftet\nangenehm\nnach\nHeidelbeeren,\nJohannisbeeren,\nWalderdbeeren\nund\nGranatapfel.\nAm\nGaumen\nist\nes\nfrisch,\nzart\nsaftig\nund\nmit\neinem\nanhaltenden\nGeschmack.\nTECHNISCHE\nDATEN\nPRODUKTBEZEICHNUNG:\nRosé.\nTRAUBENSORTEN:\n100%\nRaboso.\nANBAUGEBIET:\nes\nwird\nin\neinem\nWeinberg\nzwischen\nder\nAdria\nund\nden\nAlpen\nhergestellt.\nBODENBESCHAFFENHEIT:\nSchwemmland,\n„caranto“\nbezeichnet,\nbestehend aus weißem Lehm und Sedimentgestein aus den Dolomiten."}, {"page": 10, "text": "De Stefani\nVALDOBBIADENE PROSECCO SUPERIORE\nDOCG Brut Millesimato\nTrauben: Glera\nDie Heimat des Valdobbiadene Prosecco Superiore Docg Brut ist die\nzauberhafte Hügellandschaft im Norden von Venedig, ein UNESCO-\nWeltkulturerbe, wo die Trauben dieses Prosecco reifen. Die beträchtlichen\nTemperaturschwankungen zwischen Tag und Nacht erzeugen ein ideales\nMikroklima, das dem Wein seine unverwechselbare Eleganz, seine\nangenehme Frische und sein intensives Aroma nach Golden Delicious\nÄpfeln und Akazienblüten verleiht."}]}]};
 
+
+    const WINE_LIBRARY = [
+      {
+        title: "Weißwein",
+        subtitle: "Frische italienische Weißweine aus Piemont, Lombardei, Toskana und Sardinien",
+        icon: "🥂",
+        items: [
+          {
+            name: "Roero Arneis DOCG „Anterisio“ – Cascina",
+            meta: ["Piemont", "Arneis"],
+            text: "Strohgelb mit grünem Schimmer. Intensives, persistentes Bukett mit Aprikose, Apfel, Kamille und Gewürzen. Am Gaumen würzig, gut strukturiert und harmonisch mit langem Abgang."
+          },
+          {
+            name: "Lugana DOC – Bulgarini",
+            meta: ["Lombardei", "Turbiana"],
+            text: "Strohgelb mit grünlichen Reflexen. Fruchtiges Bukett mit Pfirsich und Aprikose. Frisch, würzig, gut strukturiert und im Finale mit leichter Mandelnote."
+          },
+          {
+            name: "Vernaccia DOCG „I Macchioni“ – Casa alle Vacche",
+            meta: ["Toskana", "Vernaccia"],
+            text: "Helles Strohgelb mit grünlichen Reflexen. Üppiges Bukett mit reifer Frucht und Mandeln. Trocken, harmonisch und angenehm frisch."
+          },
+          {
+            name: "Vermentino DOC „Benas“ – Cantina della Vernaccia",
+            meta: ["Sardinien", "Vermentino"],
+            text: "Leuchtendes Strohgelb. Intensives Bukett mit Zitrusfrüchten und weißen Blumen. Trocken, weich und mit mittlerem Körper."
+          }
+        ]
+      },
+      {
+        title: "Rotwein",
+        subtitle: "Klassiker und besondere Rotweine aus mehreren italienischen Anbaugebieten",
+        icon: "🍷",
+        items: [
+          {
+            name: "Chianti Classico DOCG – Fattoria di Rodano",
+            meta: ["Toskana", "Sangiovese 90%", "Canaiolo nero 5%", "Colorino 5%"],
+            text: "Intensives Rubinrot mit erdigen Tönen, roten Kirschen und Tabak. Mittlerer Körper, Fruchtaromen, exzellente Struktur und persistentes Finale."
+          },
+          {
+            name: "Bolgheri DOC Superiore „Sor Ugo“ – Aia Vecchia",
+            meta: ["Toskana", "Cabernet Sauvignon", "Merlot", "Cabernet Franc", "Petit Verdot", "Barrique"],
+            text: "Intensives Dunkelrot. Üppiges Bukett mit Waldbeeren und Gewürzen. Lang, tief, komplex, vollmundig und mineralisch."
+          },
+          {
+            name: "Toscana IGT Rosso „Lagone“ – Aia Vecchia",
+            meta: ["Toskana", "Merlot", "Cabernet Sauvignon", "Cabernet Franc", "Barrique"],
+            text: "Intensives Dunkelrot. Frisches Bukett mit Waldbeeren, Holz und Vanille. Strukturiert, elegant, weich und persistent mit Gewürz- und Kirscharomen."
+          },
+          {
+            name: "Montepulciano DOC „Dama“ – Marramiero",
+            meta: ["Abruzzen", "Montepulciano"],
+            text: "Sattes Rubinrot mit granatroten Nuancen. Langlebig in der Nase mit Lakritznoten. Reichhaltig, harmonisch und vollmundig."
+          },
+          {
+            name: "Cannonau Anzenas – Cantine Dolia Nova",
+            meta: ["Sardinien", "Cannonau"],
+            text: "Intensives Rubinrot. Frische rote Frucht und Gewürze. Reichhaltig, vollmundig, feine Tannine, frisch und gut strukturiert."
+          },
+          {
+            name: "Primitivo Salento IGP „Santufili“ – Bulgarini",
+            meta: ["Apulien", "Primitivo", "Barrique", "39,00 €"],
+            text: "Violett strahlendes, eindringliches Rot. Gewürze und Konfitüre im intensiven Duft, ausgewogenes Tannin und sehr persistenter Nachhall."
+          },
+          {
+            name: "Tignanello Antinori 0,75 l",
+            meta: ["Toskana", "Sangiovese", "Cabernet Sauvignon", "Cabernet Franc"],
+            text: "Eleganter und komplexer Rotwein mit reifen Kirschen, dunklen Beeren, Pflaume, Vanille, Tabak und feiner Würze. Passt zu kräftigen Fleischgerichten, Pasta mit reichhaltigen Saucen und gereiftem Käse."
+          },
+          {
+            name: "Val di Suga Brunello di Montalcino DOCG 2019",
+            meta: ["Toskana", "100% Sangiovese Grosso"],
+            text: "Intensives Rubinrot mit granatroten Reflexen. Dunkle Kirschen, Pflaumen, Veilchen, Heidelbeere, Vanille, Tabak, Zimt, Schokolade und Leder. Elegant, kraftvoll und ideal zu Braten, Gegrilltem, Wild und mittelreifem Käse."
+          },
+          {
+            name: "Feudi di San Gregorio Taurasi DOCG 2018",
+            meta: ["Kampanien", "Aglianico", "13% vol."],
+            text: "Strahlendes Rubinrot mit granatroten Reflexen. Sauerkirschen, Schattenmorellen, Zimt, Muskatnuss, Vanille und Anis. Voll, ausgewogen und mit weichen Tanninen."
+          }
+        ]
+      },
+      {
+        title: "De Stefani",
+        subtitle: "Auswahl besonderer Weine aus dem Haus De Stefani",
+        icon: "🍇",
+        items: [
+          {
+            name: "DE STEFANI SOLÈR",
+            meta: ["Merlot", "Cabernet Sauvignon", "Carmenere", "Refosco", "Marzemino"],
+            text: "„Solèr“ bedeutet Dachboden oder Kornkammer. Früher trockneten dort die besten Trauben. Die Trauben stammen aus Colvendrame in Refrontolo sowie Le Ronche in Fossalta di Piave."
+          },
+          {
+            name: "DE STEFANI MALANOTTE",
+            meta: ["Einzelweinberg", "100% Raboso"],
+            text: "Autochthone Rebsorte aus dem Piavegebiet. Kräftige Aromen von Brombeeren und Kirschen; dichter Weinberg, tonreicher Boden und Nähe zu Meer und Dolomiten sorgen für Körper und Harmonie."
+          },
+          {
+            name: "DE STEFANI KREDA",
+            meta: ["Cru", "100% Refosco dal peduncolo rosso"],
+            text: "„Kreda“ bedeutet Lehm. Vollmundig, beeindruckend, umhüllend und sehr samtig mit komplexen tertiären Aromen. Empfehlung: ideal zu Risotto, Braten und besonders Lammbraten."
+          },
+          {
+            name: "DE STEFANI AMARONE",
+            meta: ["Corvina", "Corvinone", "Rondinella", "Croatina"],
+            text: "Der Trocknungsprozess verleiht Körper, Weichheit und Persönlichkeit. Noten von reifen Kirschen, Pflaumen und Brombeeren, wichtige Struktur, samtige Tannine und reichliches Bouquet."
+          },
+          {
+            name: "DE STEFANI OLMÈRA",
+            meta: ["Bianco Veneto I.G.T.", "60% Tocai", "40% Sauvignon Blanc"],
+            text: "Benannt nach einem alten Ulmenwald. Tocai gibt Körper und Struktur, Sauvignon Blanc Aroma und Eleganz. Die Struktur erlaubt Flaschenreifung bis zu 15 Jahre; optimale Qualität nach 7–8 Jahren."
+          },
+          {
+            name: "DE STEFANI PINOT GRIGIO",
+            meta: ["Pinot Grigio", "34,00 €"],
+            text: "Seit mehr als 50 Jahren in tonhaltigen, klimatisch günstigen Lagen nahe Meer und Bergen. Große Aromenvielfalt von exotischen Früchten bis zu zarten Gewürznoten."
+          },
+          {
+            name: "DE STEFANI VÈNIS",
+            meta: ["Sauvignon Blanc"],
+            text: "Eine Anerkennung an den venezianischen Handelsgeist. Der Wein passt zu exotischen Gewürzen und besonderen Köstlichkeiten, wie sie die venezianischen Bankette prägten."
+          },
+          {
+            name: "DE STEFANI BLANC DE NOIR",
+            meta: ["Rosé", "100% Raboso"],
+            text: "Aus einheimischen Raboso-Trauben zwischen Adria und Alpen. Duft nach Heidelbeeren, Johannisbeeren, Walderdbeeren und Granatapfel; frisch, zart saftig und anhaltend."
+          },
+          {
+            name: "DE STEFANI VALDOBBIADENE PROSECCO SUPERIORE DOCG Brut Millesimato",
+            meta: ["Glera", "Prosecco Superiore DOCG"],
+            text: "Aus der UNESCO-Hügellandschaft nördlich von Venedig. Temperaturunterschiede sorgen für Eleganz, angenehme Frische und intensives Aroma nach Golden Delicious Äpfeln und Akazienblüten."
+          }
+        ]
+      }
+    ];
+
     const mobileToggle = document.getElementById("mobileToggle");
     const navLinks = document.getElementById("navLinks");
     mobileToggle.addEventListener("click", () => {
@@ -515,16 +848,148 @@
       root.innerHTML = tages + wein + degust;
     }
 
-    function renderOriginals() {
+
+    function renderDocumentOverview() {
       const root = document.getElementById("originalRoot");
-      root.innerHTML = SITE_DATA.originals.map((doc, index) => `
-        <details class="original" ${index === 0 ? 'open' : ''}>
-          <summary>${escapeHtml(doc.title)} · <a href="${escapeHtml(doc.file)}" target="_blank" rel="noopener">PDF öffnen</a></summary>
-          <div class="original-content">
-            ${doc.pages.map(page => `<div class="original-page"><h4>Seite ${page.page}</h4><pre>${escapeHtml(page.text)}</pre></div>`).join("")}
-          </div>
-        </details>
+      const menuCount = SITE_DATA.sections.reduce((sum, section) => sum + section.items.length, 0);
+
+      const categoryTiles = SITE_DATA.sections.map(section => `
+        <a class="category-tile" href="#${section.id}" onclick="document.getElementById('${section.id}').open = true">
+          <h4>${escapeHtml(section.title)}</h4>
+          <p>${escapeHtml(section.subtitle || "Kategorie")}</p>
+          <span class="count">${section.items.length} Einträge</span>
+        </a>
       `).join("");
+
+      const tageskarte = SITE_DATA.tageskarte.map(row => `
+        <article class="dish-card">
+          <div><h4>${escapeHtml(row[0])}</h4><p>${escapeHtml(row[1])}</p></div>
+          <span class="price-pill">${escapeHtml(row[2])}</span>
+        </article>
+      `).join("");
+
+      const weinangebote = SITE_DATA.weinangebote.map(row => `
+        <article class="dish-card">
+          <div><h4>${escapeHtml(row[0])}</h4><p>${escapeHtml(row[1])} · ${escapeHtml(row[2])}<br>${escapeHtml(row[3])}</p></div>
+          <span class="price-pill">${escapeHtml(row[4])}</span>
+        </article>
+      `).join("");
+
+      const degustationen = SITE_DATA.degustationen.map(event => `
+        <article class="event-card">
+          <h4>${escapeHtml(event.title)}</h4>
+          <div class="time">${escapeHtml(event.time)} · ${escapeHtml(event.price)}</div>
+          ${event.items.map(course => `
+            <div class="event-course">
+              <strong>${escapeHtml(course[0])}</strong>
+              <span>${escapeHtml(course[1])}</span>
+            </div>
+          `).join("")}
+          <p class="note">${escapeHtml(event.note)}</p>
+        </article>
+      `).join("");
+
+      const wineLibrary = WINE_LIBRARY.map(group => `
+        <section class="wine-group">
+          <div class="wine-group-head">
+            <div>
+              <h4>${group.icon} ${escapeHtml(group.title)}</h4>
+              <p>${escapeHtml(group.subtitle)}</p>
+            </div>
+            <span class="chip">${group.items.length} Weine</span>
+          </div>
+          <div class="wine-grid">
+            ${group.items.map(wine => `
+              <article class="wine-card">
+                <h5>${escapeHtml(wine.name)}</h5>
+                <div class="wine-meta">${wine.meta.map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+                <p>${escapeHtml(wine.text)}</p>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+
+      root.innerHTML = `
+        <div class="document-showcase">
+          <details class="document-details" open>
+            <summary>
+              <div class="document-title"><div class="document-icon">🍽️</div><div><h3>Hauptkarte</h3><p>vollständig als moderne Kategorien statt PDF-Rohtext</p></div></div>
+              <div class="document-summary"><span class="chip">${SITE_DATA.sections.length} Kategorien</span><span class="chip">${menuCount} Einträge</span><span class="toggle-icon">+</span></div>
+            </summary>
+            <div class="document-panel">
+              <div class="polished-intro">
+                <strong>Hinweis:</strong> Die vollständige Hauptkarte ist im Bereich „Vollständige Speisekarte“ bereits als durchsuchbare, einklappbare Karte umgesetzt. Diese Übersicht dient als schöner Einstieg und bringt Gäste direkt zur gewünschten Kategorie.
+              </div>
+              <div class="category-cloud">${categoryTiles}</div>
+            </div>
+          </details>
+
+          <details class="document-details" open>
+            <summary>
+              <div class="document-title"><div class="document-icon">✨</div><div><h3>Tageskarte</h3><p>aktuelle Empfehlungen aus der Küche</p></div></div>
+              <div class="document-summary"><span class="chip">${SITE_DATA.tageskarte.length} Gerichte</span><span class="toggle-icon">+</span></div>
+            </summary>
+            <div class="document-panel">
+              <div class="dish-showcase">${tageskarte}</div>
+              <p class="note"><a href="https://www.lisoletta-olpe.de/gfx/tageskarte.pdf" target="_blank" rel="noopener">Tageskarte zusätzlich als PDF öffnen</a></p>
+            </div>
+          </details>
+
+          <details class="document-details">
+            <summary>
+              <div class="document-title"><div class="document-icon">🍾</div><div><h3>Sonderaktionen</h3><p>Degustazione-Menüs und besondere Abende</p></div></div>
+              <div class="document-summary"><span class="chip">${SITE_DATA.degustationen.length} Aktionen</span><span class="toggle-icon">+</span></div>
+            </summary>
+            <div class="document-panel">
+              <div class="event-layout">${degustationen}</div>
+              <p class="note"><a href="https://www.lisoletta-olpe.de/gfx/sonderaktion.pdf" target="_blank" rel="noopener">Sonderaktionen zusätzlich als PDF öffnen</a></p>
+            </div>
+          </details>
+
+          <details class="document-details">
+            <summary>
+              <div class="document-title"><div class="document-icon">📦</div><div><h3>Weinangebote</h3><p>Cantina-Angebote zum Mitnehmen oder Bestellen</p></div></div>
+              <div class="document-summary"><span class="chip">${SITE_DATA.weinangebote.length} Angebote</span><span class="toggle-icon">+</span></div>
+            </summary>
+            <div class="document-panel">
+              <div class="dish-showcase">${weinangebote}</div>
+              <p class="note"><a href="https://www.lisoletta-olpe.de/gfx/mittagskarte.pdf" target="_blank" rel="noopener">Weinangebote zusätzlich als PDF öffnen</a></p>
+            </div>
+          </details>
+
+          <details class="document-details">
+            <summary>
+              <div class="document-title"><div class="document-icon">🍷</div><div><h3>Weinkarte</h3><p>I Vini – als Weinbibliothek statt Fließtext</p></div></div>
+              <div class="document-summary"><span class="chip">3 Gruppen</span><span class="chip">${WINE_LIBRARY.reduce((sum, g) => sum + g.items.length, 0)} Weine</span><span class="toggle-icon">+</span></div>
+            </summary>
+            <div class="document-panel">
+              <div class="polished-intro">
+                Die Weinkarte ist in <strong>Weißwein</strong>, <strong>Rotwein</strong> und <strong>De Stefani</strong> gegliedert. Die Informationen aus dem PDF bleiben erhalten, werden aber als lesbare Weinkarten mit Herkunft, Rebsorte und Beschreibung dargestellt.
+              </div>
+              <div class="wine-library">${wineLibrary}</div>
+              <p class="note"><a href="https://www.lisoletta-olpe.de/gfx/weinkarte.pdf" target="_blank" rel="noopener">Weinkarte zusätzlich als PDF öffnen</a></p>
+            </div>
+          </details>
+        </div>
+      `;
+    }
+
+
+    function setupMobileMenuTools() {
+      const tools = document.getElementById("menuTools");
+      if (!tools) return;
+      const media = window.matchMedia("(max-width: 920px)");
+      const apply = () => {
+        if (media.matches) {
+          tools.open = false;
+        } else {
+          tools.open = true;
+        }
+      };
+      apply();
+      if (media.addEventListener) media.addEventListener("change", apply);
+      else media.addListener(apply);
     }
 
     function setupSearch() {
@@ -549,7 +1014,8 @@
 
     renderMenu();
     renderSpecials();
-    renderOriginals();
+    renderDocumentOverview();
+    setupMobileMenuTools();
     setupSearch();
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
